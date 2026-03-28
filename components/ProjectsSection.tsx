@@ -15,7 +15,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
-    image: 'https://images.unsplash.com/photo-1600596542815-e328701102b9?q=80&w=2669&auto=format&fit=crop',
+    image: "/images/projects/Elysian Heaven (1).webp",
   },
   { 
     title: 'Classic Oasis', 
