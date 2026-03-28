@@ -7,28 +7,22 @@ interface HeroProps {
 
 const heroSlides = [
   {
-    image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b91d?q=80&w=2574&auto=format&fit=crop",
-    alt: "Modern Landscape Architecture"
+    image: "/images/hero/heroslide (1).webp"
   },
   {
-    image: "https://images.unsplash.com/photo-1600596542815-e328701102b9?q=80&w=2669&auto=format&fit=crop",
-    alt: "Luxury Villa Garden"
+    image: "/images/hero/heroslide (2).webp"
   },
   {
-    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop",
-    alt: "Minimalist Courtyard"
+    image: "/images/hero/heroslide (3).webp"
   },
   {
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop",
-    alt: "Resort Landscape"
+    image: "/images/hero/heroslide (4).webp"
   },
   {
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2500&auto=format&fit=crop",
-    alt: "Seamless Integration"
+    image: "/images/hero/heroslide (5).webp"
   },
   {
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2670&auto=format&fit=crop",
-    alt: "Estate Grounds"
+    image: "/images/hero/heroslide (6).webp"
   }
 ];
 
