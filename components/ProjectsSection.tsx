@@ -15,7 +15,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
-    image: "/images/projects/Elysian Heaven (1).webp",
+    image: "/images/projects/Elysian Heaven (2).webp",
   },
   { 
     title: 'Classic Oasis', 
@@ -23,7 +23,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'Rooted in classical proportions, this dwelling orchestrates a dialogue between monumental materiality and delicate softscapes. Water features and indigenous flora create a deeply restorative environment.',
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop',
+    image: "/images/projects/Classic Oasis (21).webp",
   },
   { 
     title: 'Opulent Nest', 
@@ -31,7 +31,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'An exploration of refined tactility and light, where expansive glazing invites the surrounding ecology into the living experience. The design champions passive cooling and seamless indoor-outdoor integration.',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop',
+    image: "/images/projects/Opulent Nest (5).webp",
   },
   { 
     title: 'Cultural Elegance Residency', 
@@ -39,7 +39,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'Drawing from regional heritage, this residence employs local sandstone and intricate privacy veils to temper the harsh desert sun. The resulting microclimate is a sanctuary of cool, shaded tranquility.',
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2500&auto=format&fit=crop',
+    image: "/images/projects/Cultural Elegance Residency (24).webp",
   },
   { 
     title: 'Classical Grandeur', 
@@ -47,7 +47,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'A stately composition of formal gardens and architectural symmetry, designed to age gracefully alongside its inhabitants. The landscape acts as a living canvas, shifting with the seasonal rhythms.',
-    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2670&auto=format&fit=crop',
+    image: "/images/projects/Classical Grandeur (5).webp",
   },
   { 
     title: 'Grand Colonnade', 
@@ -55,7 +55,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'Defined by its rhythmic structural bays, this home frames curated vistas of the surrounding terrain. The integration of aquatic elements grounds the built form in a state of profound calm.',
-    image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b91d?q=80&w=2574&auto=format&fit=crop',
+    image: "/images/projects/Grand Colonnade (10).webp",
   },
   { 
     title: 'The Floating Foyer', 
@@ -63,7 +63,7 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'An architectural illusion where the entrance pavilion appears to hover above reflective pools. The design leverages cross-ventilation and biophilic principles to curate a restorative human experience.',
-    image: 'https://images.unsplash.com/photo-1600607687931-cebf0746e50e?q=80&w=2670&auto=format&fit=crop',
+    image: "/images/projects/The Floating Foyer (1).webp",
   },
   { 
     title: 'Blossom Ridge', 
@@ -71,7 +71,7 @@ const projectData = [
     category: 'Private Estates', 
     status: 'Completed',
     description: 'A sprawling estate that embraces the natural topography, weaving built interventions seamlessly into the existing flora. The landscape strategy prioritizes biodiversity and ecological resilience.',
-    image: 'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?q=80&w=2670&auto=format&fit=crop',
+    image: "/images/projects/blossom-ridge (5).webp",
   },
   { 
     title: 'Regalia Oasis', 
@@ -79,7 +79,7 @@ const projectData = [
     category: 'Private Estates', 
     status: 'Completed',
     description: 'Conceived as a private retreat, this estate utilizes dense native planting to create a secluded, immersive environment. The material palette reflects the earthy tones of the regional landscape.',
-    image: 'https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?q=80&w=2670&auto=format&fit=crop',
+    image: "/images/projects/regalia-oasis (27).webp",
   },
   { 
     title: 'Glass Haven', 
@@ -87,7 +87,7 @@ const projectData = [
     category: 'Private Estates', 
     status: 'Completed',
     description: 'A transparent pavilion set within a lush, curated wilderness, dissolving the visual barriers between shelter and nature. The design is a testament to climate-responsive luxury and spatial purity.',
-    image: 'https://images.unsplash.com/photo-1600566753086-00f18efc2065?q=80&w=2670&auto=format&fit=crop',
+    image: "/images/projects/glass-haven (9).webp",
   },
   { 
     title: 'Vrindavan Township', 
