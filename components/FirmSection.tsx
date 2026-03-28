@@ -29,7 +29,7 @@ const FirmSection: React.FC<SectionProps> = ({ id }) => {
             {/* Left Column: Visual */}
             <div className="md:col-span-5 relative aspect-[3/4] md:aspect-[4/5] lg:aspect-square bg-brand-grey/5 overflow-hidden shadow-sm group">
                  <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop" 
+                    src="/images/firm/abhishek-profile.jpeg" 
                     alt="Ar. Abhishek Chandaliya" 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out" 
                  />
