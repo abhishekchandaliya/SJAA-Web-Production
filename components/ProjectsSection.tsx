@@ -48,6 +48,14 @@ const projectData = [
     status: 'Completed',
     description: 'A stately composition of formal gardens and architectural symmetry, designed to age gracefully alongside its inhabitants. The landscape acts as a living canvas, shifting with the seasonal rhythms.',
     image: "/images/projects/Classical Grandeur (5).webp",
+    gallery: [
+	"/images/projects/Classical Grandeur (1).webp",
+	"/images/projects/Classical Grandeur (8).webp",
+	"/images/projects/Classical Grandeur (12).webp",
+	"/images/projects/Classical Grandeur (15).webp",
+	"/images/projects/Classical Grandeur (18).webp",
+	"/images/projects/Classical Grandeur (20).webp",
+	]
   },
   { 
     title: 'Grand Colonnade', 

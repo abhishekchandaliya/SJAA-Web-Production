@@ -76,13 +76,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
       {/* Project Gallery */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-          {[
-            project.image,
-            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1600607687931-cebf0746e50e?q=80&w=2670&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop',
-          ].map((img, index) => (
+          {project.gallery?.map((img: string, index: number) => (
             <div 
               key={index} 
               className={`relative overflow-hidden bg-brand-grey/5 aspect-[4/3] group ${
