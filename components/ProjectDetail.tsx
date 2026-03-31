@@ -79,8 +79,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           {project.gallery?.map((img: string, index: number) => (
             <div 
               key={index} 
-              className={`relative overflow-hidden bg-brand-grey/5 aspect-[4/3] group ${
-                index % 5 === 0 ? 'lg:col-span-2' : 'col-span-1'
+              className={`relative overflow-hidden bg-brand-grey/5 h-[300px] md:h-[400px] lg:h-[500px] group ${
+                index % 5 === 0 ? 'md:col-span-2' : 'col-span-1'
               }`}
             >
               <img 
