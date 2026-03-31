@@ -183,7 +183,12 @@ const projectData = [
     category: 'Housing & Townships', 
     status: 'Completed',
     description: 'A master-planned community that redefines urban density through extensive green corridors and communal gathering spaces. The infrastructure is engineered for sustainable water management and community well-being.',
-    image: 'https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=2670&auto=format&fit=crop',
+	image: "/images/projects/vrindavan township (4).webp",
+    gallery: [
+	"/images/projects/vrindavan township (2).webp",
+	"/images/projects/vrindavan township (3).webp",
+	"/images/projects/vrindavan township (1).webp",
+	]
   },
   { 
     title: 'Samurai Valley', 
@@ -191,7 +196,13 @@ const projectData = [
     category: 'Housing & Townships', 
     status: 'Completed',
     description: 'Integrating residential clusters with the natural contours of the valley, this development fosters a deep connection to the outdoors. The landscape design acts as the unifying thread for the entire township.',
-    image: 'https://images.unsplash.com/photo-1515263487990-61b07816b324?q=80&w=2670&auto=format&fit=crop',
+	image: "/images/projects/samurai valley (2).webp",
+    gallery: [
+	"/images/projects/samurai valley (3).webp",
+	"/images/projects/samurai valley (4).webp",
+	"/images/projects/samurai valley (5).webp",
+	"/images/projects/samurai valley (1).webp",
+	]
   },
   { 
     title: 'Gunsagar Valley', 
@@ -199,7 +210,11 @@ const projectData = [
     category: 'Housing & Townships', 
     status: 'Ongoing',
     description: 'An ambitious ongoing project that prioritizes ecological restoration alongside residential development. The master plan envisions a self-sustaining habitat with expansive, climate-adaptive green spaces.',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
+	image: "/images/projects/gunsagar (2).webp",
+    gallery: [
+	"/images/projects/gunsagar (1).webp",
+	"/images/projects/gunsagar (3).webp",
+	]
   },
   { 
     title: 'Garden House Prime', 
@@ -207,7 +222,7 @@ const projectData = [
     category: 'Housing & Townships', 
     status: 'Ongoing',
     description: 'A forward-thinking residential enclave where every dwelling is intimately connected to a central, thriving ecosystem. The design champions native softscapes and passive environmental strategies.',
-    image: 'https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?q=80&w=2667&auto=format&fit=crop',
+	image: "/images/projects/garden house.webp",
   },
   { 
     title: 'Vrindavan Greens', 
@@ -215,7 +230,13 @@ const projectData = [
     category: 'Housing & Townships', 
     status: 'Completed',
     description: 'A completed residential sector that successfully marries high-density living with lush, accessible landscapes. The project sets a new benchmark for biophilic integration in urban housing.',
-    image: 'https://images.unsplash.com/photo-1430285561322-7808604715df?q=80&w=2670&auto=format&fit=crop',
+	image: "/images/projects/Vrindavan Greens (5).webp",
+    gallery: [
+	"/images/projects/Vrindavan Greens (1).webp",
+	"/images/projects/Vrindavan Greens (3).webp",
+	"/images/projects/Vrindavan Greens (2).webp",
+	"/images/projects/Vrindavan Greens (4).webp",
+	]
   },
   { 
     title: 'Nowal Naturecure Resort', 
@@ -223,7 +244,14 @@ const projectData = [
     category: 'Hospitality', 
     status: 'Completed',
     description: 'A wellness sanctuary designed to heal through nature, featuring therapeutic gardens and serene aquatic voids. The architecture defers to the landscape, creating a holistic environment for rejuvenation.',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2670&auto=format&fit=crop',
+	image: "/images/projects/nowal (10).webp",
+    gallery: [
+	"/images/projects/nowal (3).webp",
+	"/images/projects/nowal (13).webp",
+	"/images/projects/nowal (16).webp",
+	"/images/projects/nowal (18).webp",
+	"/images/projects/nowal (12).webp",
+	]
   },
   { 
     title: 'Sand Dunes Resort', 
@@ -231,7 +259,7 @@ const projectData = [
     category: 'Hospitality', 
     status: 'Ongoing',
     description: 'An immersive hospitality experience carved into the desert landscape, utilizing indigenous materials and climate-responsive shading. The design celebrates the raw beauty and tranquility of its arid context.',
-    image: 'https://images.unsplash.com/photo-1544144433-d50aff500b91?q=80&w=2670&auto=format&fit=crop',
+	image: "/images/projects/pushkar.webp",
   },
   { 
     title: 'Laxmi Poddar Seva Sadan', 
@@ -239,7 +267,16 @@ const projectData = [
     category: 'Institutional & Commercial', 
     status: 'Completed',
     description: 'A civic landmark that balances monumental scale with inviting, human-centric courtyards. The landscape serves as a vital public amenity, offering shaded respite and fostering community interaction.',
-    image: 'https://images.unsplash.com/photo-1523634921620-2ba269a7af28?q=80&w=2665&auto=format&fit=crop',
+	image: "/images/projects/laxmi poddar (10).webp",
+    gallery: [
+	"/images/projects/laxmi poddar (5).webp",
+	"/images/projects/laxmi poddar (4).webp",
+	"/images/projects/laxmi poddar (3).webp",
+	"/images/projects/laxmi poddar (6).webp",
+	"/images/projects/laxmi poddar (1).webp",
+	"/images/projects/laxmi poddar (2).webp",
+	"/images/projects/laxmi poddar (8).webp",
+	]
   },
   { 
     title: 'The Zenith Terraces', 
@@ -247,7 +284,16 @@ const projectData = [
     category: 'Terrace & Rooftops', 
     status: 'Completed',
     description: 'Elevated urban oases that transform stark rooftops into vibrant, living ecosystems. These curated terraces offer panoramic vistas while providing crucial thermal insulation for the structures below.',
-    image: 'https://images.unsplash.com/photo-1598337586548-26168537574b?q=80&w=800&auto=format&fit=crop',
+	image: "/images/projects/Zenith terraces (2).webp",
+    gallery: [
+	"/images/projects/Zenith terraces (8).webp",
+	"/images/projects/Zenith terraces (3).webp",
+	"/images/projects/Zenith terraces (5).webp",
+	"/images/projects/Zenith terraces (4).webp",
+	"/images/projects/Zenith terraces (7).webp",
+	"/images/projects/Zenith terraces (1).webp",
+	"/images/projects/Zenith terraces (6).webp",
+	]
   }
 ];
 
