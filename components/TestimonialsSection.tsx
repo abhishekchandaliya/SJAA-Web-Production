@@ -11,7 +11,7 @@ const testimonials = [
     project: "Ramsetu Global Infra Projects Pvt. Ltd."
   },
   {
-    quote: "Ar. Abhishek treats every development as his own, combining relentless hard work with a genuinely kind, approachable spirit. He is undeniably one of the finest landscape architects, constantly pushing boundaries to deliver excellence.",
+    quote: "I have been associated with Abhishek for more than a decade, he treats every project and development as his own, combining relentless hard work with a genuinely kind, approachable spirit. He is undeniably one of the finest architects, constantly pushing boundaries to deliver excellence.",
     author: "Co-Founder",
     project: "Fateh Buildtech Pvt. Ltd."
   },
@@ -59,11 +59,15 @@ const TestimonialsSection: React.FC<SectionProps> = ({ id }) => {
               >
                 "{t.quote}"
               </p>
-              <div className="border-t border-brand-red/20 pt-4 w-12 group-hover:w-24 transition-all duration-500 mt-auto">
-                <p className="text-xs font-sans uppercase tracking-[0.1em] font-medium text-brand-red mb-1">
+              <div className="flex flex-col items-center mt-auto pt-6 w-full">
+                {/* The Animated Line */}
+                <div className="h-[1px] bg-brand-red/30 w-12 group-hover:w-24 transition-all duration-500 mb-4"></div>
+                
+                {/* The Unrestricted Text */}
+                <p className="text-xs font-sans uppercase tracking-[0.1em] font-medium text-brand-red mb-1 text-center px-4">
                   {t.author}
                 </p>
-                <p className="text-xs font-sans uppercase tracking-[0.1em] font-medium text-brand-grey/70">
+                <p className="text-xs font-sans uppercase tracking-[0.1em] font-medium text-brand-grey/70 text-center px-4">
                   {t.project}
                 </p>
               </div>
