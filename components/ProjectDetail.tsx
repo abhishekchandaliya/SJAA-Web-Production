@@ -9,9 +9,8 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
 	const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   useEffect(() => {
-const handleSmartBack = () => {
-    onBack(); // This closes the project
-    // This waits a tiny fraction of a second, then scrolls smoothly to the works grid
+  const handleSmartBack = () => {
+    onBack(); 
     setTimeout(() => {
       const worksSection = document.getElementById('selected-works') || document.getElementById('works');
       if (worksSection) {
