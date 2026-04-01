@@ -6,40 +6,35 @@ interface SectionProps {
 
 const partners = [
   {
-    logo: "https://picsum.photos/seed/partner1/200/100",
-    signature: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Signature_of_John_Hancock.svg",
+    logo: "/images/partners/rajkumar architects.png",
     quote: "Ar. Abhishek brings a visionary depth to landscape architecture that is simply unmatched in our region. SJAA’s dedication to flawless detailing and execution makes them an invaluable partner on our high-end projects.",
     name: "Ar. Rajkumar Kumawat",
     role: "Principal Architect",
     firm: "Rajkumar Architects"
   },
   {
-    logo: "https://picsum.photos/seed/partner2/200/100",
-    signature: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Signature_of_John_Hancock.svg",
+    logo: "/images/partners/ruby amit.png",
     quote: "SJAA’s working style perfectly bridges the gap between complex architecture and seamless landscape integration. They are undoubtedly one of the finest, most technically sound landscape practices in the region.",
     name: "Ar. Amit Goswami",
     role: "Principal Architect",
     firm: "Ruby & Amit Architects"
   },
   {
-    logo: "https://picsum.photos/seed/partner3/200/100",
-    signature: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Signature_of_John_Hancock.svg",
+    logo: "/images/partners/genesis.png",
     quote: "The technical rigor and visionary approach SJAA brings to landscape design consistently elevates our built environments. Their dedication from initial concept to final on-site execution is truly exceptional.",
     name: "Ar. Raghuveer Singh",
     role: "Principal Architect",
     firm: "Genesis Design Studio"
   },
   {
-    logo: "https://picsum.photos/seed/partner4/200/100",
-    signature: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Signature_of_John_Hancock.svg",
+    logo: "/images/partners/insight.png",
     quote: "SJAA’s profound dedication to landscape detailing brings a unique, breathing dimension to our architectural projects.",
     name: "Ar. Hridyesh Singh",
     role: "Principal Architect",
     firm: "Insight ~ An Architecture Studio"
   },
   {
-    logo: "https://picsum.photos/seed/partner5/200/100",
-    signature: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Signature_of_John_Hancock.svg",
+    logo: "/images/partners/sheetal.png",
     quote: "Partnering with SJAA guarantees a masterclass in modern landscape architecture. Their highly collaborative working style and execution capabilities make them the leading practice in the region.",
     name: "Ar. Sheetal Agarwal",
     role: "Principal Architect",
