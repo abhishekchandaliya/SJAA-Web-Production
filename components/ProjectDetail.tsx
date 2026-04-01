@@ -14,7 +14,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
     onBack(); 
     setTimeout(() => {
       // Looks for the section with id="selected-works" or id="works"
-      const worksSection = document.getElementById('selected-works') || document.getElementById('works');
+      const worksSection = document.getElementById('projects');
       if (worksSection) {
         worksSection.scrollIntoView({ behavior: 'smooth' });
       }
