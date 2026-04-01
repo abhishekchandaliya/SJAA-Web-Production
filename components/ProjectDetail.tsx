@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowLeft, X } from 'lucide-react';
 
 interface ProjectDetailProps {
   project: any;
@@ -7,6 +7,7 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
+	const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -54,7 +55,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
       {/* Opening Description */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div className="md:col-span-8 md:col-start-3">
+          <div className="md:col-span-8">
             <p className="font-sans text-lg md:text-xl text-brand-grey font-light leading-relaxed">
               {project.description}
             </p>
@@ -78,7 +79,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {project.gallery?.map((img: string, index: number) => (
             <div 
-              key={index} 
+              key={index}
+	      onClick={() => setFullscreenImage(img)} 
               className={`relative overflow-hidden bg-brand-grey/5 h-[300px] md:h-[400px] lg:h-[500px] group ${
                 index % 5 === 0 ? 'md:col-span-2' : 'col-span-1'
               }`}
@@ -91,6 +93,22 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               />
             </div>
           ))}
+	{/* Fullscreen Lightbox */}
+      {fullscreenImage && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
+          <button 
+            onClick={() => setFullscreenImage(null)}
+            className="absolute top-6 right-6 z-[110] p-2 text-white/50 hover:text-white bg-black/20 hover:bg-white/10 rounded-full transition-all"
+          >
+            <X size={32} strokeWidth={1.5} />
+          </button>
+          <img 
+            src={fullscreenImage} 
+            alt="Fullscreen view" 
+            className="max-w-full max-h-[90vh] object-contain select-none"
+          />
+        </div>
+      )}
         </div>
       </div>
     </div>
