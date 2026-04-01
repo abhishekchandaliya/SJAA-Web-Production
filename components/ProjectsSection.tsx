@@ -16,6 +16,13 @@ const projectData = [
     status: 'Completed',
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
     image: "/images/projects/Elysian Heaven (2).webp",
+    gallery: [
+	"/images/projects/Elysian Heaven (2).webp",
+	"/images/projects/Elysian Heaven (2).webp",
+	"/images/projects/Elysian Heaven (2).webp",
+	"/images/projects/Elysian Heaven (2).webp",
+	"/images/projects/Elysian Heaven (2).webp",
+	]
   },
   { 
     title: 'Classic Oasis', 
@@ -67,6 +74,13 @@ const projectData = [
     status: 'Completed',
     description: 'Drawing from regional heritage, this residence employs local sandstone and intricate privacy veils to temper the harsh desert sun. The resulting microclimate is a sanctuary of cool, shaded tranquility.',
     image: "/images/projects/Cultural Elegance Residency (24).webp",
+    gallery: [
+	"/images/projects/Cultural Elegance Residency (24).webp",
+	"/images/projects/Cultural Elegance Residency (24).webp",
+	"/images/projects/Cultural Elegance Residency (24).webp",
+	"/images/projects/Cultural Elegance Residency (24).webp",
+	"/images/projects/Cultural Elegance Residency (24).webp",
+	]
   },
   { 
     title: 'Classical Grandeur', 
@@ -99,6 +113,12 @@ const projectData = [
     status: 'Completed',
     description: 'Defined by its rhythmic structural bays, this home frames curated vistas of the surrounding terrain. The integration of aquatic elements grounds the built form in a state of profound calm.',
     image: "/images/projects/Grand Colonnade (10).webp",
+    gallery: [
+	"/images/projects/Grand Colonnade (10).webp",
+	"/images/projects/Grand Colonnade (10).webp",
+	"/images/projects/Grand Colonnade (10).webp",
+	"/images/projects/Grand Colonnade (10).webp",
+	]
   },
   { 
     title: 'The Floating Foyer', 
@@ -107,6 +127,13 @@ const projectData = [
     status: 'Completed',
     description: 'An architectural illusion where the entrance pavilion appears to hover above reflective pools. The design leverages cross-ventilation and biophilic principles to curate a restorative human experience.',
     image: "/images/projects/The Floating Foyer (1).webp",
+    gallery: [
+	"/images/projects/The Floating Foyer (1).webp",
+	"/images/projects/The Floating Foyer (1).webp",
+	"/images/projects/The Floating Foyer (1).webp",
+	"/images/projects/The Floating Foyer (1).webp",
+	"/images/projects/The Floating Foyer (1).webp",
+	]
   },
   { 
     title: 'Blossom Ridge', 
@@ -223,6 +250,12 @@ const projectData = [
     status: 'Ongoing',
     description: 'A forward-thinking residential enclave where every dwelling is intimately connected to a central, thriving ecosystem. The design champions native softscapes and passive environmental strategies.',
 	image: "/images/projects/garden house.webp",
+    gallery: [
+	"/images/projects/garden house.webp",
+	"/images/projects/garden house.webp",
+	"/images/projects/garden house.webp",
+	"/images/projects/garden house.webp",
+	]
   },
   { 
     title: 'Vrindavan Greens', 
@@ -260,6 +293,11 @@ const projectData = [
     status: 'Ongoing',
     description: 'An immersive hospitality experience carved into the desert landscape, utilizing indigenous materials and climate-responsive shading. The design celebrates the raw beauty and tranquility of its arid context.',
 	image: "/images/projects/pushkar.webp",
+    gallery: [
+	"/images/projects/pushkar.webp",
+	"/images/projects/pushkar.webp",
+	"/images/projects/pushkar.webp",
+	]
   },
   { 
     title: 'Laxmi Poddar Seva Sadan', 
