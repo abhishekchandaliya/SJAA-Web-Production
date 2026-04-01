@@ -446,7 +446,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
   };
 
   return (
-    <section id={id} className="py-16 md:py-32 px-6 md:px-12 bg-white w-full">
+    <section id="selected-works" className="py-16 md:py-32 px-6 md:px-12 bg-white w-full">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12 space-y-4 grid grid-cols-1 md:grid-cols-12 gap-8">
