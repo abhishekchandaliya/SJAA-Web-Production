@@ -43,7 +43,7 @@ const FirmSection: React.FC<SectionProps> = ({ id }) => {
                         Ar. Abhishek Chandaliya
                     </h3>
                     <p className="text-xs md:text-sm font-sans uppercase tracking-[0.2em] text-brand-red font-semibold">
-                        Design Principal & Founder
+                        Founder & Design Principal
                     </p>
                 </div>
 

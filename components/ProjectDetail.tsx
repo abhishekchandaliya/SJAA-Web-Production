@@ -7,17 +7,22 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
-	const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
-  useEffect(() => {
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
+  // 1. The Smart Back Function (Must be outside useEffect)
   const handleSmartBack = () => {
     onBack(); 
     setTimeout(() => {
+      // Looks for the section with id="selected-works" or id="works"
       const worksSection = document.getElementById('selected-works') || document.getElementById('works');
       if (worksSection) {
         worksSection.scrollIntoView({ behavior: 'smooth' });
       }
     }, 50);
   };
+
+  // 2. Scroll to top when opening the project
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
@@ -90,7 +95,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
             <div 
               key={index}
 	      onClick={() => setFullscreenImage(img)} 
-              className={`relative overflow-hidden bg-brand-grey/5 h-[300px] md:h-[400px] lg:h-[500px] group ${
+              className={`relative overflow-hidden bg-brand-grey/5 h-[300px] md:h-[400px] lg:h-[500px] group cursor-pointer ${
                 index % 5 === 0 ? 'md:col-span-2' : 'col-span-1'
               }`}
             >
