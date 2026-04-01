@@ -12,110 +12,111 @@ const signatureData = [
     title: "Vertical Ecosystems", 
     subtitle: "The Living Skin", 
     desc: "Breathing green planes that soften the built form and purify the air.", 
-    image: "./assets/vertical-ecosystems.jpg",
+    image: "/images/detailing/vertical (1).webp",
     gallery: [
-        "./assets/vertical-ecosystems-1.jpg",
-        "./assets/vertical-ecosystems-2.jpg",
-        "./assets/vertical-ecosystems-3.jpg"
+        "/images/detailing/vertical (2).webp",
+        "/images/detailing/vertical (3).webp",
+        "/images/detailing/vertical (4).webp",
+        "/images/detailing/vertical (5).webp",
     ]
   },
   { 
     title: "Spatial Artifacts", 
     subtitle: "The Visual Anchor", 
     desc: "Curated forms that punctuate space, holding the gaze in moments of stillness.", 
-    image: "./assets/spatial-artifacts.jpg",
+    image: "/images/detailing/artifacts (1).webp",
     gallery: [
-        "./assets/spatial-artifacts-1.jpg",
-        "./assets/spatial-artifacts-2.jpg",
-        "./assets/spatial-artifacts-3.jpg"
+        "/images/detailing/artifacts (2).webp",
+        "/images/detailing/artifacts (3).webp",
+        "/images/detailing/artifacts (4).webp",
     ]
   },
   { 
     title: "Aquatic Voids", 
     subtitle: "The Still Reflection", 
     desc: "Expanses of water mirroring the sky, merging luxury with deep tranquility.", 
-    image: "./assets/aquatic-voids.jpg",
+    image: "/images/detailing/voids (1).webp",
     gallery: [
-        "./assets/aquatic-voids-1.jpg",
-        "./assets/aquatic-voids-2.jpg",
-        "./assets/aquatic-voids-3.jpg"
+        "/images/detailing/voids (2).webp",
+        "/images/detailing/voids (3).webp",
+        "/images/detailing/voids (4).webp",
     ]
   },
   { 
     title: "Native Softscape", 
     subtitle: "The Breath", 
     desc: "A curated palette of indigenous flora ensuring seasonal rhythm and biodiversity.", 
-    image: "./assets/native-softscape.jpg",
+    image: "/images/detailing/softscape (1).webp",
     gallery: [
-        "./assets/native-softscape-1.jpg",
-        "./assets/native-softscape-2.jpg",
-        "./assets/native-softscape-3.jpg"
+        "/images/detailing/softscape (2).webp",
+        "/images/detailing/softscape (3).webp",
+        "/images/detailing/softscape (4).webp",
     ]
   },
   { 
     title: "Privacy Veils", 
     subtitle: "The Light Filter", 
     desc: "Intricate screens offering seclusion while sculpting light into geometric poetry.", 
-    image: "./assets/privacy-veils.jpg",
+    image: "/images/detailing/privacy (1).webp",
     gallery: [
-        "./assets/privacy-veils-1.jpg",
-        "./assets/privacy-veils-2.jpg",
-        "./assets/privacy-veils-3.jpg"
+        "/images/detailing/privacy (2).webp",
+        "/images/detailing/privacy (3).webp",
+        "/images/detailing/privacy (4).webp",
     ]
   },
   { 
     title: "Shadow Frames", 
     subtitle: "The Geometric Interplay", 
     desc: "Structural lattices that invite nature to climb, casting dancing shadows below.", 
-    image: "./assets/shadow-frames.jpg",
+    image: "/images/detailing/shadow (1).webp",
     gallery: [
-        "./assets/shadow-frames-1.jpg",
-        "./assets/shadow-frames-2.jpg",
-        "./assets/shadow-frames-3.jpg"
+        "/images/detailing/shadow (2).webp",
+        "/images/detailing/shadow (3).webp",
+        "/images/detailing/shadow (4).webp",
     ]
   },
   { 
     title: "Aquatic Elements", 
     subtitle: "The Reflection", 
     desc: "Fluid surfaces mirroring the sky, grounding the built form in a state of calm.", 
-    image: "./assets/aquatic-elements.jpg",
+    image: "/images/detailing/aquatic (1).webp",
     gallery: [
-        "./assets/aquatic-elements-1.jpg",
-        "./assets/aquatic-elements-2.jpg",
-        "./assets/aquatic-elements-3.jpg"
+        "/images/detailing/aquatic (2).webp",
+        "/images/detailing/aquatic (3).webp",
+        "/images/detailing/aquatic (4).webp",
     ]
   },
   { 
     title: "Material Textures", 
     subtitle: "The Tactility", 
     desc: "Raw, tactile surfaces that age gracefully, inviting touch and grounding the sensory experience.", 
-    image: "./assets/material-textures.jpg",
+    image: "/images/detailing/textures (1).webp",
     gallery: [
-        "./assets/material-textures-1.jpg",
-        "./assets/material-textures-2.jpg",
-        "./assets/material-textures-3.jpg"
+        "/images/detailing/textures (2).webp",
+        "/images/detailing/textures (3).webp",
+        "/images/detailing/textures (4).webp",
     ]
   },
   { 
     title: "Pavilions", 
     subtitle: "The Sanctuary", 
     desc: "Floating shelters that frame the horizon, dissolving boundaries between protection and the open landscape.", 
-    image: "./assets/pavilions.jpg",
+    image: "/images/detailing/pavilions (1).webp",
     gallery: [
-        "./assets/pavilions-1.jpg",
-        "./assets/pavilions-2.jpg",
-        "./assets/pavilions-3.jpg"
+        "/images/detailing/pavilions (2).webp",
+        "/images/detailing/pavilions (3).webp",
+        "/images/detailing/pavilions (4)).webp",
     ]
   },
   { 
     title: "Canopies", 
     subtitle: "The Light Play", 
     desc: "Overhead planes filtering sunlight into ephemeral patterns, creating a dynamic dance of shadow.", 
-    image: "./assets/canopies.jpg",
+    image: "/images/detailing/canopies (1).webp",
     gallery: [
-        "./assets/canopies-1.jpg",
-        "./assets/canopies-2.jpg",
-        "./assets/canopies-3.jpg"
+        "/images/detailing/canopies (1).webp",
+        "/images/detailing/canopies (1).webp",
+        "/images/detailing/canopies (1).webp",
     ]
   }
 ];

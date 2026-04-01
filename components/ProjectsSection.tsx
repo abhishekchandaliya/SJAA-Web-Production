@@ -17,11 +17,11 @@ const projectData = [
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
     image: "/images/projects/Elysian Heaven (2).webp",
     gallery: [
-	"/images/projects/Elysian Heaven (2).webp",
-	"/images/projects/Elysian Heaven (2).webp",
-	"/images/projects/Elysian Heaven (2).webp",
-	"/images/projects/Elysian Heaven (2).webp",
-	"/images/projects/Elysian Heaven (2).webp",
+	"/images/projects/Elysian Heaven (1).webp",
+	"/images/projects/Elysian Heaven (3).webp",
+	"/images/projects/Elysian Heaven (4).webp",
+	"/images/projects/Elysian Heaven (5).webp",
+	"/images/projects/Elysian Heaven (6).webp",
 	]
   },
   { 
@@ -75,11 +75,11 @@ const projectData = [
     description: 'Drawing from regional heritage, this residence employs local sandstone and intricate privacy veils to temper the harsh desert sun. The resulting microclimate is a sanctuary of cool, shaded tranquility.',
     image: "/images/projects/Cultural Elegance Residency (24).webp",
     gallery: [
-	"/images/projects/Cultural Elegance Residency (24).webp",
-	"/images/projects/Cultural Elegance Residency (24).webp",
-	"/images/projects/Cultural Elegance Residency (24).webp",
-	"/images/projects/Cultural Elegance Residency (24).webp",
-	"/images/projects/Cultural Elegance Residency (24).webp",
+	"/images/projects/Cultural Elegance Residency (1).webp",
+	"/images/projects/Cultural Elegance Residency (2).webp",
+	"/images/projects/Cultural Elegance Residency (3).webp",
+	"/images/projects/Cultural Elegance Residency (4).webp",
+	"/images/projects/Cultural Elegance Residency (5).webp",
 	]
   },
   { 
@@ -114,10 +114,12 @@ const projectData = [
     description: 'Defined by its rhythmic structural bays, this home frames curated vistas of the surrounding terrain. The integration of aquatic elements grounds the built form in a state of profound calm.',
     image: "/images/projects/Grand Colonnade (10).webp",
     gallery: [
-	"/images/projects/Grand Colonnade (10).webp",
-	"/images/projects/Grand Colonnade (10).webp",
-	"/images/projects/Grand Colonnade (10).webp",
-	"/images/projects/Grand Colonnade (10).webp",
+	"/images/projects/Grand Colonnade (1).webp",
+	"/images/projects/Grand Colonnade (2).webp",
+	"/images/projects/Grand Colonnade (3).webp",
+	"/images/projects/Grand Colonnade (4).webp",
+	"/images/projects/Grand Colonnade (5).webp",
+	"/images/projects/Grand Colonnade (6).webp",
 	]
   },
   { 
@@ -128,11 +130,11 @@ const projectData = [
     description: 'An architectural illusion where the entrance pavilion appears to hover above reflective pools. The design leverages cross-ventilation and biophilic principles to curate a restorative human experience.',
     image: "/images/projects/The Floating Foyer (1).webp",
     gallery: [
-	"/images/projects/The Floating Foyer (1).webp",
-	"/images/projects/The Floating Foyer (1).webp",
-	"/images/projects/The Floating Foyer (1).webp",
-	"/images/projects/The Floating Foyer (1).webp",
-	"/images/projects/The Floating Foyer (1).webp",
+	"/images/projects/The Floating Foyer (2).webp",
+	"/images/projects/The Floating Foyer (3).webp",
+	"/images/projects/The Floating Foyer (4).webp",
+	"/images/projects/The Floating Foyer (5).webp",
+	"/images/projects/The Floating Foyer (6).webp",
 	]
   },
   { 
@@ -251,10 +253,10 @@ const projectData = [
     description: 'A forward-thinking residential enclave where every dwelling is intimately connected to a central, thriving ecosystem. The design champions native softscapes and passive environmental strategies.',
 	image: "/images/projects/garden house.webp",
     gallery: [
-	"/images/projects/garden house.webp",
-	"/images/projects/garden house.webp",
-	"/images/projects/garden house.webp",
-	"/images/projects/garden house.webp",
+	"/images/projects/garden house (1).webp",
+	"/images/projects/garden house (2).webp",
+	"/images/projects/garden house (3).webp",
+	"/images/projects/garden house (4).webp",
 	]
   },
   { 
@@ -294,9 +296,9 @@ const projectData = [
     description: 'An immersive hospitality experience carved into the desert landscape, utilizing indigenous materials and climate-responsive shading. The design celebrates the raw beauty and tranquility of its arid context.',
 	image: "/images/projects/pushkar.webp",
     gallery: [
-	"/images/projects/pushkar.webp",
-	"/images/projects/pushkar.webp",
-	"/images/projects/pushkar.webp",
+	"/images/projects/pushkar (1).webp",
+	"/images/projects/pushkar (2).webp",
+	"/images/projects/pushkar (3).webp",
 	]
   },
   { 
