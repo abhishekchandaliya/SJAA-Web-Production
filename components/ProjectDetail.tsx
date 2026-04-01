@@ -9,7 +9,7 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
 	const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   useEffect(() => {
-	const handleSmartBack = () => {
+const handleSmartBack = () => {
     onBack(); // This closes the project
     // This waits a tiny fraction of a second, then scrolls smoothly to the works grid
     setTimeout(() => {
@@ -27,7 +27,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
       {/* Back Button */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
         <button 
-          onClick={onBack}
+          onClick={handleSmartBack}
           className="group flex items-center gap-4 text-brand-grey hover:text-brand-red transition-colors"
         >
           <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform"/>
