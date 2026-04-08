@@ -20,18 +20,19 @@ const App: React.FC = () => {
   const toastRef = useRef<HTMLDivElement>(null);
   const toastTimeoutRef = useRef<number | null>(null);
 
-  // Project Detail State
+  // Project Detail & Animation State
   const [activeProject, setActiveProject] = useState<any | null>(null);
-  
-  // Publication Detail State
   const [activePublication, setActivePublication] = useState<Publication | null>(null);
+  
+  // NEW: Transition State for smooth fades
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [displayContent, setDisplayContent] = useState<'home' | 'project' | 'publication'>('home');
 
   // Smooth scroll handler
   const scrollToSection = (id: string) => {
     if (activeProject || activePublication) {
-      setActiveProject(null);
-      setActivePublication(null);
-      // Need a small delay to allow DOM to render main page before scrolling
+      handleCloseDetail(); // Use our new smooth close function
+      
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -39,12 +40,9 @@ const App: React.FC = () => {
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
           
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
-      }, 100);
+      }, 400); // Wait for fade out to finish before scrolling
       return;
     }
 
@@ -54,12 +52,31 @@ const App: React.FC = () => {
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
   };
+
+  // --- NEW: Smooth Transition Handlers ---
+  const handleOpenProject = (project: any) => {
+    setIsTransitioning(true); // Start fade out
+    setTimeout(() => {
+      setActiveProject(project);
+      setDisplayContent('project');
+      window.scrollTo(0, 0); // Jump to top while screen is white
+      setIsTransitioning(false); // Start fade in
+    }, 300); // 300ms fade duration
+  };
+
+  const handleCloseDetail = () => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveProject(null);
+      setActivePublication(null);
+      setDisplayContent('home');
+      setIsTransitioning(false);
+    }, 300);
+  };
+  // ---------------------------------------
 
   // Helper: Escape Regex characters
   const escapeRegExp = (string: string) => {
@@ -95,22 +112,17 @@ const App: React.FC = () => {
 
   // Highlight the current match
   const highlightCurrentMatch = (index: number) => {
-    // Remove active class from all
     matchesRef.current.forEach(el => el.classList.remove('active-match'));
     
     if (matchesRef.current.length > 0 && matchesRef.current[index]) {
       const current = matchesRef.current[index];
       current.classList.add('active-match');
       
-      // Scroll with offset for sticky header
-      const headerOffset = 120; // 96px header + buffer
+      const headerOffset = 120;
       const elementPosition = current.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
 
@@ -120,14 +132,13 @@ const App: React.FC = () => {
     
     if (!term || term.trim() === '') return;
 
-    // Create TreeWalker to find text nodes
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode: (node) => {
           if (
             node.parentElement && 
             (node.parentElement.tagName === 'SCRIPT' || 
              node.parentElement.tagName === 'STYLE' || 
-             node.parentElement.closest('header')) // Exclude header/search bar itself
+             node.parentElement.closest('header'))
           ) {
               return NodeFilter.FILTER_REJECT;
           }
@@ -178,7 +189,7 @@ const App: React.FC = () => {
     setTotalMatches(newMatches.length);
 
     if (newMatches.length > 0) {
-      setCurrentMatchIndex(1); // 1-based for UI, 0-based for array
+      setCurrentMatchIndex(1);
       highlightCurrentMatch(0);
     } else {
       showToast("No matches found.");
@@ -194,8 +205,6 @@ const App: React.FC = () => {
 
   const handlePrev = () => {
     if (matchesRef.current.length === 0) return;
-    // (current - 2) because currentMatchIndex is 1-based, array is 0-based
-    // Logic: if current is 1 (index 0), prev should be length-1
     let prevIndex = (currentMatchIndex - 2 + matchesRef.current.length) % matchesRef.current.length;
     setCurrentMatchIndex(prevIndex + 1);
     highlightCurrentMatch(prevIndex);
@@ -206,7 +215,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
+    <div className="min-h-screen flex flex-col w-full overflow-x-hidden bg-white">
       <Header 
         onNavigate={scrollToSection} 
         onSearch={performSearch}
@@ -217,29 +226,32 @@ const App: React.FC = () => {
         totalMatches={totalMatches}
       />
       
-      {/* Toast Notification Element */}
       <div id="search-toast" ref={toastRef}>No matches found on page.</div>
 
-      <main className="flex-grow pt-24">
-        {activeProject ? (
+      {/* NEW: Transition Wrapper */}
+      <main className={`flex-grow pt-24 transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+        {displayContent === 'project' && activeProject && (
           <ProjectDetail 
             project={activeProject} 
-            onBack={() => setActiveProject(null)} 
+            onBack={handleCloseDetail} 
           />
-        ) : activePublication ? (
+        )}
+        
+        {displayContent === 'publication' && activePublication && (
           <PublicationDetail 
             publication={activePublication}
-            onBack={() => setActivePublication(null)}
+            onBack={handleCloseDetail}
           />
-        ) : (
+        )}
+
+        {displayContent === 'home' && (
           <>
             <Hero id="home" />
             <FirmSection id="firm" />
-            <ProjectsSection id="projects" onProjectClick={setActiveProject} />
+            <ProjectsSection id="projects" onProjectClick={handleOpenProject} />
             <SignatureElementsSection id="elements" />
             <CollaborationsSection id="collaborations" />
             <TestimonialsSection id="testimonials" />
-            {/* <PublicationsSection id="publications" onPublicationClick={setActivePublication} /> */}
             <ContactSection id="contact" />
           </>
         )}
