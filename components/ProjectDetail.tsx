@@ -9,11 +9,9 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
-  // 1. The Smart Back Function (Must be outside useEffect)
   const handleSmartBack = () => {
     onBack(); 
     setTimeout(() => {
-      // Looks for the section with id="selected-works" or id="works"
       const worksSection = document.getElementById('projects');
       if (worksSection) {
         worksSection.scrollIntoView({ behavior: 'smooth' });
@@ -21,93 +19,91 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
     }, 50);
   };
 
-  // 2. Scroll to top when opening the project
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen bg-white pt-32 pb-24 animate-fade-in">
-      {/* Back Button */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
+    <div className="min-h-screen bg-white pt-24 pb-16 animate-fade-in">
+      
+      {/* 1. Back Button (Tightened spacing) */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8">
         <button 
           onClick={handleSmartBack}
-          className="group flex items-center gap-4 text-brand-grey hover:text-brand-red transition-colors"
+          className="group flex items-center gap-3 text-brand-grey hover:text-brand-red transition-colors"
         >
-          <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform"/>
-          <span className="font-sans uppercase tracking-widest text-xs font-medium">Back to Works</span>
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform"/>
+          <span className="font-sans text-sm tracking-wide">Back to Projects</span>
         </button>
       </div>
 
-      {/* Hero Header */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div className="md:col-span-8">
-            <div className="flex items-center gap-4 mb-6">
-               <span className="h-[1px] w-12 bg-brand-red"></span>
-               <span className="text-brand-red font-sans uppercase tracking-widest text-xs font-medium">{project.category}</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#1A1A1A] leading-tight mb-8">
-              {project.title}
-            </h1>
-          </div>
-          <div className="md:col-span-4 flex flex-col justify-end pb-4">
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-sans uppercase tracking-widest text-[10px] text-brand-grey/70 mb-1">Location</h4>
-                <p className="font-sans text-sm text-[#1A1A1A]">{project.location}</p>
-              </div>
-              <div>
-                <h4 className="font-sans uppercase tracking-widest text-[10px] text-brand-grey/70 mb-1">Status</h4>
-                <p className="font-sans text-sm text-[#1A1A1A]">{project.status}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Opening Description */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div className="md:col-span-8">
-            <p className="font-sans text-lg md:text-xl text-brand-grey font-light leading-relaxed">
-              {project.description}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Project Media (Full-Width Image) */}
-      <div className="w-full relative group mb-32 bg-brand-grey/5">
-        <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
+      {/* 2. Hero Image (Moved to the top for immediate impact) */}
+      <div className="w-full max-w-[100rem] mx-auto px-4 md:px-8 mb-12">
+        <div className="relative w-full h-[60vh] md:h-[75vh] overflow-hidden rounded-sm bg-brand-grey/5 cursor-pointer" onClick={() => setFullscreenImage(project.image)}>
           <img 
             src={project.image} 
             alt={project.title} 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]"
           />
         </div>
       </div>
 
-      {/* Project Gallery */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+      {/* 3. Title & Info Block (Softened typography, side-by-side layout on desktop) */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+          
+          {/* Left Column: Title & Description */}
+          <div className="lg:col-span-8">
+            <div className="flex items-center gap-3 mb-4">
+               <span className="h-[1px] w-8 bg-brand-red"></span>
+               <span className="text-brand-red font-sans text-sm tracking-wide">{project.category}</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-serif text-[#1A1A1A] leading-tight mb-6">
+              {project.title}
+            </h1>
+            <p className="font-sans text-base md:text-lg text-brand-grey font-light leading-relaxed max-w-3xl">
+              {project.description}
+            </p>
+          </div>
+
+          {/* Right Column: Details (Removed harsh uppercase) */}
+          <div className="lg:col-span-4 flex flex-row lg:flex-col gap-8 lg:gap-6 pt-2 lg:pt-14 border-t lg:border-t-0 border-brand-grey/10 mt-6 lg:mt-0">
+            <div>
+              <h4 className="font-sans text-xs text-brand-grey/60 mb-1">Location</h4>
+              <p className="font-sans text-base text-[#1A1A1A]">{project.location}</p>
+            </div>
+            <div>
+              <h4 className="font-sans text-xs text-brand-grey/60 mb-1">Status</h4>
+              <p className="font-sans text-base text-[#1A1A1A]">{project.status}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* 4. Project Gallery (Tightened spacing) */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {project.gallery?.map((img: string, index: number) => (
             <div 
               key={index}
-	      onClick={() => setFullscreenImage(img)} 
-              className={`relative overflow-hidden bg-brand-grey/5 h-[300px] md:h-[400px] lg:h-[500px] group cursor-pointer ${
+              onClick={() => setFullscreenImage(img)} 
+              className={`relative overflow-hidden bg-brand-grey/5 h-[300px] md:h-[400px] group cursor-pointer rounded-sm ${
                 index % 5 === 0 ? 'md:col-span-2' : 'col-span-1'
               }`}
             >
               <img 
                 src={img} 
-                alt={`${project.title} Gallery ${index + 1}`} 
-                className="w-full h-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03]"
+                alt={`${project.title} Detail ${index + 1}`} 
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
               />
             </div>
           ))}
-	{/* Fullscreen Lightbox */}
+        </div>
+      </div>
+
+      {/* Fullscreen Lightbox (Unchanged) */}
       {fullscreenImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
           <button 
@@ -123,8 +119,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
           />
         </div>
       )}
-        </div>
-      </div>
     </div>
   );
 };
