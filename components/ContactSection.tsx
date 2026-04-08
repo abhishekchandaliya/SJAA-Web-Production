@@ -203,21 +203,19 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
                 </p>
              </div>
              
-             {/* The Embedded Google Map */}
+             {/* Functional Google Map */}
              <div className="w-full h-48 sm:h-56 mt-2 bg-white/5 rounded-sm overflow-hidden border border-white/10 relative group">
                 <iframe 
-                  src="https://maps.google.com/maps?q=C-86C,%20Nandkishore%20Pareek%20Marg,%20Jaipur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                  src="https://maps.google.com/maps?q=C-86C,+Nandkishore+Pareek+Marg,+Bapu+Nagar,+Jaipur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
                   height="100%" 
-                  style={{ border: 0, filter: 'grayscale(100%) invert(90%) contrast(80%)' }} 
+                  style={{ border: 0 }} 
                   allowFullScreen={false} 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
                   title="SJAA Studio Location"
-                  className="absolute inset-0 transition-all duration-500 group-hover:filter-none"
+                  className="absolute inset-0 transition-all duration-700 grayscale invert contrast-75 opacity-80 group-hover:grayscale-0 group-hover:invert-0 group-hover:contrast-100 group-hover:opacity-100"
                 ></iframe>
-                {/* Overlay to disable scroll trapping until clicked */}
-                <div className="absolute inset-0 bg-transparent pointer-events-none group-hover:pointer-events-auto"></div>
              </div>
           </div>
 
