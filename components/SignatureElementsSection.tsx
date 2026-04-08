@@ -6,7 +6,6 @@ interface SectionProps {
 }
 
 // --- CONFIGURATION OBJECT ---
-// Add new design elements here. Ensure images are placed in the 'assets' folder.
 const signatureData = [
   { 
     title: "Vertical Ecosystems", 
@@ -125,18 +124,18 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
   const [selectedElement, setSelectedElement] = useState<typeof signatureData[0] | null>(null);
 
   return (
-    <section id={id} className="py-16 md:py-32 bg-neutral-900 text-white w-full overflow-hidden relative">
-      <div className="w-full px-6 md:px-12 mb-16 max-w-7xl mx-auto">
+    <section id={id} className="py-20 md:py-24 bg-[#111111] text-white w-full overflow-hidden relative">
+      <div className="w-full px-6 md:px-12 mb-12 md:mb-16 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-12">
-            <div className="flex items-center gap-4 mb-4">
-               <span className="h-[1px] w-12 bg-brand-red"></span>
-               <span className="text-brand-red font-serif uppercase tracking-widest text-sm md:text-base font-medium">Detailing</span>
+            <div className="flex items-center gap-3 mb-4">
+               <span className="h-[1px] w-8 bg-brand-red"></span>
+               <span className="text-brand-red font-sans text-sm tracking-wide">Detailing</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif leading-tight">
+            <h2 className="text-4xl md:text-5xl font-serif leading-tight">
               Design Articulation
             </h2>
-            <p className="text-base font-sans text-white/70 mt-4 font-light max-w-xl leading-relaxed">
+            <p className="text-base md:text-lg font-sans text-white/60 mt-4 font-light max-w-xl leading-relaxed">
                The nuanced details and sensory layers that compose our spatial narrative.
             </p>
           </div>
@@ -150,25 +149,25 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                 <div 
                     key={index} 
                     onClick={() => setSelectedElement(el)}
-                    className="flex-none w-[85vw] md:w-[400px] lg:w-[450px] relative aspect-[3/4] overflow-hidden group transition-all duration-500 ease-in-out bg-brand-grey/20 cursor-pointer snap-start"
+                    className="flex-none w-[85vw] md:w-[350px] lg:w-[400px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
                 >
                     {/* Background Image */}
                     <img 
                         src={el.image} 
                         alt={el.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-[1.03] pointer-events-none"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105 pointer-events-none"
                     />
                     
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+                    {/* Gradient Overlay (Darkened slightly for text pop) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
 
-                    {/* Content */}
+                    {/* Content (Softer typography, smoother hover) */}
                     <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end pointer-events-none z-10">
-                        <div className="transform transition-all duration-500 group-hover:-translate-y-2 opacity-90 group-hover:opacity-100">
-                            <h4 className="text-2xl md:text-3xl font-serif text-[#F5F5F5] mb-2">
+                        <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-4 opacity-90 group-hover:opacity-100">
+                            <h4 className="text-2xl md:text-3xl font-serif text-white mb-2">
                                 {el.title}
                             </h4>
-                            <p className="text-sm font-sans text-brand-red uppercase tracking-widest font-medium">
+                            <p className="text-sm font-sans text-brand-red tracking-wide font-medium">
                                 {el.subtitle}
                             </p>
                         </div>
@@ -182,29 +181,33 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
 
       {/* Gallery Modal */}
       {selectedElement && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 md:p-12 animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-12 animate-fade-in">
             <button 
                 onClick={() => setSelectedElement(null)} 
-                className="absolute top-6 right-6 z-50 p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                className="absolute top-6 right-6 z-50 p-2 text-white/50 hover:text-white bg-white/5 hover:bg-white/15 rounded-full transition-all"
                 aria-label="Close Gallery"
             >
                 <X size={32} strokeWidth={1.5} />
             </button>
             
-            <div className="max-w-7xl w-full h-full flex flex-col overflow-hidden">
-                {/* Modal Header */}
-                <div className="mb-8 shrink-0">
-                    <span className="text-brand-red font-sans uppercase tracking-widest text-sm font-bold block mb-2">{selectedElement.subtitle}</span>
-                    <h2 className="text-3xl md:text-5xl font-serif text-white mb-4">{selectedElement.title}</h2>
-                    <p className="text-white/70 font-sans font-light max-w-2xl leading-relaxed text-base md:text-lg border-l-2 border-brand-red/50 pl-4">
+            <div className="max-w-7xl w-full h-full flex flex-col overflow-hidden pt-8 md:pt-0">
+                {/* Modal Header (Cleaned up typography) */}
+                <div className="mb-10 shrink-0">
+                    <span className="text-brand-red font-sans tracking-wide text-sm font-medium block mb-3">
+                        {selectedElement.subtitle}
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+                        {selectedElement.title}
+                    </h2>
+                    <p className="text-white/70 font-sans font-light max-w-2xl leading-relaxed text-base md:text-lg border-l-2 border-brand-red/50 pl-5">
                         {selectedElement.desc}
                     </p>
                 </div>
 
                 {/* Modal Gallery Grid */}
-                <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 pb-8 scrollbar-hide">
+                <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 pb-8 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {/* Main Image */}
-                    <div className="col-span-12 md:col-span-4 aspect-[4/3] bg-brand-grey/20 overflow-hidden rounded-sm group">
+                    <div className="col-span-12 md:col-span-8 lg:col-span-6 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group">
                         <img 
                             src={selectedElement.image} 
                             alt={selectedElement.title} 
@@ -213,7 +216,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     </div>
                     {/* Additional Gallery Images */}
                     {selectedElement.gallery.map((img, i) => (
-                        <div key={i} className="col-span-12 md:col-span-4 aspect-[4/3] bg-brand-grey/20 overflow-hidden rounded-sm group">
+                        <div key={i} className="col-span-12 md:col-span-4 lg:col-span-3 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group">
                             <img 
                                 src={img} 
                                 alt={`${selectedElement.title} detail ${i + 1}`} 
