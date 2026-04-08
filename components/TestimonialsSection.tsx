@@ -4,7 +4,6 @@ interface SectionProps {
   id: string;
 }
 
-// --- Scroll Reveal Hook ---
 const useScrollReveal = () => {
   const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef<HTMLDivElement>(null);
@@ -60,51 +59,50 @@ const TestimonialsSection: React.FC<SectionProps> = ({ id }) => {
   const { isVisible: isTrackVisible, domRef: trackRef } = useScrollReveal();
 
   return (
-    <section id={id} className="py-20 md:py-24 px-6 md:px-12 bg-[#F9F9F9] w-full overflow-hidden">
+    <section id={id} className="py-16 md:py-20 px-6 md:px-12 bg-[#F9F9F9] w-full overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
+        {/* Header - Compact Spacing */}
         <div 
             ref={headerRef}
-            className={`grid grid-cols-1 md:grid-cols-12 gap-8 mb-16 text-center transition-all duration-1000 ease-out ${
-                isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`grid grid-cols-1 md:grid-cols-12 gap-4 mb-10 text-center transition-all duration-1000 ease-out ${
+                isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
         >
            <div className="md:col-span-12 flex flex-col items-center justify-center">
-             <h2 className="text-4xl md:text-5xl font-serif text-[#1A1A1A] leading-tight">
+             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#1A1A1A] leading-tight">
               Client Experiences
             </h2>
            </div>
         </div>
 
+        {/* Carousel Track */}
         <div 
             ref={trackRef}
-            className={`flex flex-nowrap overflow-x-auto gap-6 lg:gap-8 pb-12 pt-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] -mx-6 px-6 md:-mx-12 md:px-12 cursor-ew-resize transition-all duration-1000 delay-200 ease-out ${
-                isTrackVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            className={`flex flex-nowrap overflow-x-auto gap-6 lg:gap-8 pb-8 pt-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] -mx-6 px-6 md:-mx-12 md:px-12 cursor-ew-resize transition-all duration-1000 delay-100 ease-out ${
+                isTrackVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
         >
           {testimonials.map((t, index) => (
             <div 
               key={index} 
-              className="shrink-0 snap-center w-[85vw] md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(33.333%-1.333rem)] flex flex-col items-center justify-center text-center group"
+              className="shrink-0 snap-center w-[85vw] md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(33.333%-1rem)] flex flex-col items-center justify-center text-center group"
             >
-              <div className="mb-6 opacity-30 group-hover:opacity-60 transition-opacity duration-500">
-                <i className="fa-solid fa-quote-left text-brand-red text-2xl"></i>
+              <div className="mb-4 opacity-30 group-hover:opacity-60 transition-opacity duration-500">
+                <i className="fa-solid fa-quote-left text-brand-red text-xl"></i>
               </div>
-              <p 
-                className="font-serif font-light text-[#1A1A1A] mb-10 leading-relaxed"
-                style={{ fontSize: 'clamp(1rem, 1.5vw, 1.125rem)' }}
-              >
+              <p className="font-serif font-light text-[#1A1A1A] mb-8 leading-relaxed text-base md:text-lg">
                 "{t.quote}"
               </p>
-              <div className="flex flex-col items-center mt-auto pt-4 w-full">
+              <div className="flex flex-col items-center mt-auto pt-2 w-full">
                 {/* The Animated Line */}
-                <div className="h-[1px] bg-brand-red/30 w-12 group-hover:w-24 group-hover:bg-brand-red transition-all duration-500 mb-6"></div>
+                <div className="h-[1px] bg-brand-red/30 w-8 group-hover:w-16 group-hover:bg-brand-red transition-all duration-500 mb-4"></div>
                 
                 {/* The Unrestricted Text */}
-                <p className="text-sm font-sans font-medium text-[#1A1A1A] mb-1 text-center px-4 tracking-wide">
+                <p className="text-sm font-sans font-medium text-[#1A1A1A] mb-0.5 text-center px-4 tracking-wide">
                   {t.author}
                 </p>
-                <p className="text-xs font-sans text-brand-grey font-light text-center px-4 tracking-wide">
+                <p className="text-[11px] md:text-xs font-sans text-brand-grey font-light text-center px-4 tracking-wide">
                   {t.project}
                 </p>
               </div>
