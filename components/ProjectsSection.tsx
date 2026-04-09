@@ -38,7 +38,7 @@ const projectData = [
     ]
   },
   { 
-    title: 'Nowal Naturecure Resort', 
+    title: 'Nowal Naturecare Resort', 
     location: 'Badhal', 
     category: 'Hospitality', 
     status: 'Completed',
