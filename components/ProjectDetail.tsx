@@ -9,27 +9,50 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
-  const handleSmartBack = () => {
-    onBack(); 
-    setTimeout(() => {
-      const worksSection = document.getElementById('projects');
-      if (worksSection) {
-        worksSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 50);
-  };
-
+  // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Handle Escape Key & Mobile Back Button for Lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFullscreenImage(null);
+    };
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (fullscreenImage) {
+        // If lightbox is open, close it and prevent default back behavior
+        setFullscreenImage(null);
+        // We push state again so the next 'back' still stays on the site
+        window.history.pushState({ lightbox: true }, ''); 
+      } else {
+        // If lightbox is NOT open, trigger the normal "Back to Projects" flow
+        onBack();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('popstate', handlePopState);
+
+    // Push a dummy state to history when lightbox opens to trap the back button
+    if (fullscreenImage) {
+      window.history.pushState({ lightbox: true }, '');
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [fullscreenImage, onBack]);
+
   return (
     <div className="min-h-screen bg-white pt-24 pb-16 animate-fade-in">
       
-      {/* 1. Back Button (Tightened spacing) */}
+      {/* 1. Back Button */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8">
         <button 
-          onClick={handleSmartBack}
+          onClick={onBack}
           className="group flex items-center gap-3 text-brand-grey hover:text-brand-red transition-colors"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform"/>
@@ -37,7 +60,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
         </button>
       </div>
 
-      {/* 2. Hero Image (Moved to the top for immediate impact) */}
+      {/* 2. Hero Image */}
       <div className="w-full max-w-[100rem] mx-auto px-4 md:px-8 mb-12">
         <div className="relative w-full h-[60vh] md:h-[75vh] overflow-hidden rounded-sm bg-brand-grey/5 cursor-pointer" onClick={() => setFullscreenImage(project.image)}>
           <img 
@@ -48,7 +71,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
         </div>
       </div>
 
-      {/* 3. Title & Info Block (Softened typography, side-by-side layout on desktop) */}
+      {/* 3. Title & Info Block */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           
@@ -66,7 +89,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
             </p>
           </div>
 
-          {/* Right Column: Details (Removed harsh uppercase) */}
+          {/* Right Column: Details */}
           <div className="lg:col-span-4 flex flex-row lg:flex-col gap-8 lg:gap-6 pt-2 lg:pt-14 border-t lg:border-t-0 border-brand-grey/10 mt-6 lg:mt-0">
             <div>
               <h4 className="font-sans text-xs text-brand-grey/60 mb-1">Location</h4>
@@ -81,7 +104,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
         </div>
       </div>
 
-      {/* 4. Project Gallery (Tightened spacing) */}
+      {/* 4. Project Gallery */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {project.gallery?.map((img: string, index: number) => (
@@ -103,7 +126,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
         </div>
       </div>
 
-      {/* Fullscreen Lightbox (Unchanged) */}
+      {/* Fullscreen Lightbox */}
       {fullscreenImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
           <button 
