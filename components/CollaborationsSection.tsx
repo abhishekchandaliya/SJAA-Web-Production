@@ -130,3 +130,8 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
             ))}
         </div>
       </div>
+    </section>
+  );
+};
+
+export default CollaborationsSection;
