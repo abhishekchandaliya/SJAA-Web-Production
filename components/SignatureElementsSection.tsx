@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 interface SectionProps {
@@ -122,6 +122,44 @@ const signatureData = [
 
 const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
   const [selectedElement, setSelectedElement] = useState<typeof signatureData[0] | null>(null);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
+  // Handle Escape Key & Mobile Back Button
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (fullscreenImage) setFullscreenImage(null);
+        else if (selectedElement) setSelectedElement(null);
+      }
+    };
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (fullscreenImage) {
+        setFullscreenImage(null);
+        window.history.pushState({ modal: true }, ''); // Re-trap for the modal
+      } else if (selectedElement) {
+        setSelectedElement(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [fullscreenImage, selectedElement]);
+
+  // Trap back button when modal opens
+  useEffect(() => {
+    if (selectedElement && !fullscreenImage) {
+      window.history.pushState({ modal: true }, '');
+    } else if (fullscreenImage) {
+      window.history.pushState({ lightbox: true }, '');
+    }
+  }, [selectedElement, fullscreenImage]);
+
 
   return (
     <section id={id} className="py-20 md:py-24 bg-[#111111] text-white w-full overflow-hidden relative">
@@ -158,10 +196,10 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105 pointer-events-none"
                     />
                     
-                    {/* Gradient Overlay (Darkened slightly for text pop) */}
+                    {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
 
-                    {/* Content (Softer typography, smoother hover) */}
+                    {/* Content */}
                     <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end pointer-events-none z-10">
                         <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-4 opacity-90 group-hover:opacity-100">
                             <h4 className="text-2xl md:text-3xl font-serif text-white mb-2">
@@ -191,7 +229,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
             </button>
             
             <div className="max-w-7xl w-full h-full flex flex-col overflow-hidden pt-8 md:pt-0">
-                {/* Modal Header (Cleaned up typography) */}
+                {/* Modal Header */}
                 <div className="mb-10 shrink-0">
                     <span className="text-brand-red font-sans tracking-wide text-sm font-medium block mb-3">
                         {selectedElement.subtitle}
@@ -207,7 +245,10 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                 {/* Modal Gallery Grid */}
                 <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 pb-8 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {/* Main Image */}
-                    <div className="col-span-12 md:col-span-8 lg:col-span-6 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group">
+                    <div 
+                        className="col-span-12 md:col-span-8 lg:col-span-6 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group cursor-pointer"
+                        onClick={() => setFullscreenImage(selectedElement.image)}
+                    >
                         <img 
                             src={selectedElement.image} 
                             alt={selectedElement.title} 
@@ -216,7 +257,11 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     </div>
                     {/* Additional Gallery Images */}
                     {selectedElement.gallery.map((img, i) => (
-                        <div key={i} className="col-span-12 md:col-span-4 lg:col-span-3 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group">
+                        <div 
+                            key={i} 
+                            className="col-span-12 md:col-span-4 lg:col-span-3 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group cursor-pointer"
+                            onClick={() => setFullscreenImage(img)}
+                        >
                             <img 
                                 src={img} 
                                 alt={`${selectedElement.title} detail ${i + 1}`} 
@@ -227,6 +272,23 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     ))}
                 </div>
             </div>
+
+            {/* NEW: Fullscreen Lightbox Overlay */}
+            {fullscreenImage && (
+              <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-xl p-4 animate-fade-in">
+                <button 
+                  onClick={() => setFullscreenImage(null)}
+                  className="absolute top-6 right-6 z-[110] p-2 text-white/50 hover:text-white bg-white/5 hover:bg-white/15 rounded-full transition-all"
+                >
+                  <X size={32} strokeWidth={1.5} />
+                </button>
+                <img 
+                  src={fullscreenImage} 
+                  alt="Fullscreen view" 
+                  className="max-w-full max-h-[90vh] object-contain select-none"
+                />
+              </div>
+            )}
         </div>
       )}
     </section>
