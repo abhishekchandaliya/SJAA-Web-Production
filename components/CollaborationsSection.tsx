@@ -51,7 +51,7 @@ const partners = [
   {
     logo: "/images/partners/insight.png",
     quote: "SJAA’s profound dedication to landscape detailing brings a unique, breathing dimension to our architectural projects.",
-    name: "Ar. Hridyesh Singh",
+    name: "Ar. Hridyesh",
     role: "Principal Architect",
     firm: "Insight ~ An Architecture Studio"
   },

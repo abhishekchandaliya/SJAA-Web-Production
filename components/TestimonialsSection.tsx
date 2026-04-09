@@ -45,7 +45,7 @@ const testimonials = [
   {
     quote: "His kind nature and profound dedication transformed our resort into a living sanctuary. He consistently went beyond his mandate, proving himself to be a brilliant landscape architect who deeply cares about the final human experience.",
     author: "Owner",
-    project: "Nowal Naturecure Wellness Resort"
+    project: "Nowal Naturecare Wellness Resort"
   },
   {
     quote: "Despite his status as a top-tier landscape architect, he remains incredibly humble and down-to-earth. His meticulous problem-solving and hard work optimized our project costs without ever compromising the beauty of the design.",
