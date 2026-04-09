@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const [activeProject, setActiveProject] = useState<any | null>(null);
   const [activePublication, setActivePublication] = useState<Publication | null>(null);
   
-  // NEW: Transition State for smooth fades
+  // Transition State for smooth fades
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayContent, setDisplayContent] = useState<'home' | 'project' | 'publication'>('home');
 
@@ -56,7 +56,7 @@ const App: React.FC = () => {
     }
   };
 
-  // --- NEW: Smooth Transition Handlers ---
+  // --- Smooth Transition Handlers ---
   const handleOpenProject = (project: any) => {
     setIsTransitioning(true); // Start fade out
     setTimeout(() => {
@@ -74,6 +74,17 @@ const App: React.FC = () => {
       setActivePublication(null);
       setDisplayContent('home');
       setIsTransitioning(false);
+
+      // CRITICAL FIX: Snap back to the portfolio grid after rendering
+      setTimeout(() => {
+        const worksSection = document.getElementById('projects');
+        if (worksSection) {
+          const headerOffset = 100;
+          const elementPosition = worksSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: 'instant' as any });
+        }
+      }, 50);
     }, 300);
   };
   // ---------------------------------------
@@ -228,7 +239,7 @@ const App: React.FC = () => {
       
       <div id="search-toast" ref={toastRef}>No matches found on page.</div>
 
-      {/* NEW: Transition Wrapper */}
+      {/* Transition Wrapper */}
       <main className={`flex-grow pt-24 transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
         {displayContent === 'project' && activeProject && (
           <ProjectDetail 
