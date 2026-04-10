@@ -6,7 +6,6 @@ interface SectionProps {
 }
 
 // --- CONFIGURATION OBJECT ---
-// Reordered so the "All" tab shows a curated mix of categories!
 const projectData = [
   { 
     title: 'Elysian Heaven', 
@@ -89,7 +88,6 @@ const projectData = [
     "/images/projects/Zenith terraces (5).webp",
     ]
   },
-  // --- The rest of the projects follow below ---
   { 
     title: 'Classic Oasis', 
     location: 'Jaipur', 
@@ -242,20 +240,26 @@ const useScrollReveal = () => {
   return { isVisible, domRef };
 };
 
-const ProjectCard = ({ project, onClick, index }: { project: any, onClick?: () => void, index: number }) => {
+// Extracted Card to manage individual hover states cleanly
+const ProjectCard = ({ project, onClick, index, isHovered, isDesktop, onMouseEnter, onMouseLeave }: any) => {
   const { isVisible, domRef } = useScrollReveal();
-  const delay = (index % 3) * 100; // Tighter staggered animation
+  const delay = (index % 4) * 100; // Adjusted for 4 columns
 
   return (
     <div 
       ref={domRef}
-      className={`group cursor-pointer flex flex-col col-span-12 md:col-span-6 lg:col-span-4 transition-all duration-[800ms] ease-out ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       onClick={onClick}
+      // Flex accordion magic: If hovered, width transitions to 50% (2/4). If not, stays 25% (1/4).
+      className={`px-2 md:px-3 mb-6 transition-all duration-[700ms] ease-in-out shrink-0 group cursor-pointer flex flex-col
+        w-full md:w-1/2 ${isHovered && isDesktop ? 'lg:w-2/4' : 'lg:w-1/4'}
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+      `}
+      style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
     >
-      <div className="relative overflow-hidden mb-3 bg-brand-grey/5 w-full aspect-[4/3] rounded-sm">
+      {/* Fixed height ensures perfectly straight rows while width smoothly expands */}
+      <div className="relative overflow-hidden mb-2 bg-brand-grey/5 w-full h-56 lg:h-64 rounded-sm">
         <img 
           src={project.image} 
           alt={project.title} 
@@ -263,16 +267,16 @@ const ProjectCard = ({ project, onClick, index }: { project: any, onClick?: () =
           loading="lazy"
         />
         <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-        <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[9px] font-sans tracking-wide text-brand-grey opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-1 group-hover:translate-y-0 pointer-events-none rounded-sm shadow-sm">
+        <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-2 py-1 text-[9px] font-sans tracking-wide text-brand-grey opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-1 group-hover:translate-y-0 pointer-events-none rounded-sm shadow-sm">
           {project.category}
         </div>
       </div>
       
       <div className="flex flex-col mt-1 px-1">
-        <h4 className="font-serif text-[#1A1A1A] text-lg md:text-xl group-hover:text-brand-red transition-colors duration-300">
+        <h4 className="font-serif text-[#1A1A1A] text-base md:text-lg group-hover:text-brand-red transition-colors duration-300 truncate">
           {project.title}
         </h4>
-        <p className="text-xs font-sans text-brand-grey/70 mt-1 font-light flex items-center gap-1.5">
+        <p className="text-[10px] md:text-xs font-sans text-brand-grey/70 mt-0.5 font-light flex items-center gap-1.5">
           <span className="w-1 h-1 rounded-full bg-brand-red/50"></span>
           {project.location}
         </p>
@@ -283,7 +287,18 @@ const ProjectCard = ({ project, onClick, index }: { project: any, onClick?: () =
 
 const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
   const [activeTab, setActiveTab] = useState<FilterCategory>('All');
-  const [displayCount, setDisplayCount] = useState(6);
+  // Starts at 8 to create a perfect 4+4 layout
+  const [displayCount, setDisplayCount] = useState(8);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Check screen size to ensure accordion only happens on desktop
+  useEffect(() => {
+    const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
+    checkSize();
+    window.addEventListener('resize', checkSize);
+    return () => window.removeEventListener('resize', checkSize);
+  }, []);
   
   const tabs: FilterCategory[] = [
     'All',
@@ -297,16 +312,16 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
 
   const handleTabChange = (tab: FilterCategory) => {
     setActiveTab(tab);
-    setDisplayCount(6);
+    setDisplayCount(8);
   };
 
   const handleShowMore = () => {
-    setDisplayCount(prev => prev + 6);
+    setDisplayCount(prev => prev + 8);
   };
 
   const handleShowLess = () => {
     setDisplayCount(prev => {
-      const newCount = Math.max(6, prev - 6);
+      const newCount = Math.max(8, prev - 8);
       window.scrollBy({ top: -600, behavior: 'smooth' });
       return newCount;
     });
@@ -317,25 +332,41 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
     return project.category === activeTab;
   });
 
-  const displayedProjects = filteredProjects.slice(0, displayCount);
+  // Base list of projects to show
+  let displayedProjects = filteredProjects.slice(0, displayCount);
+
+  // LOGIC: Maintain a perfect rectangle. If one expands (taking 2 slots), we drop the last item to keep exactly 7 visible items.
+  if (isDesktop && hoveredId && displayedProjects.length % 4 === 0) {
+      const hoveredIndex = displayedProjects.findIndex(p => p.title === hoveredId);
+      if (hoveredIndex !== -1) {
+          const lastIdx = displayedProjects.length - 1;
+          // If hovering the very last item, drop the second-to-last item instead so the hovered one stays visible
+          if (hoveredIndex === lastIdx) {
+              displayedProjects.splice(lastIdx - 1, 1);
+          } else {
+              displayedProjects.splice(lastIdx, 1);
+          }
+      }
+  }
 
   return (
-    <section id={id} className="py-16 md:py-20 px-6 md:px-12 bg-white w-full">
+    // Compacted height: py-10 md:py-14
+    <section id={id} className="py-10 md:py-14 px-6 md:px-12 bg-white w-full">
       <div className="max-w-7xl mx-auto">
         
         {/* Header - Compact Spacing */}
-        <div className="mb-10 md:mb-12">
-          <div className="flex items-center gap-3 mb-3">
+        <div className="mb-6 md:mb-8">
+          <div className="flex items-center gap-3 mb-2">
              <span className="h-[1px] w-8 bg-brand-red"></span>
-             <span className="text-brand-red font-sans text-sm tracking-wide">Portfolio</span>
+             <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Portfolio</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#1A1A1A] leading-tight max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-serif text-[#1A1A1A] leading-tight">
             Selected Works
           </h2>
         </div>
 
         {/* Filters - Tightened layout */}
-        <div className="flex flex-wrap gap-x-5 gap-y-2 mb-10 w-full border-b border-brand-grey/10 pb-3">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 mb-8 w-full border-b border-brand-grey/10 pb-2">
           {tabs.map((tab) => {
             const isActive = activeTab === tab;
             return (
@@ -356,22 +387,31 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
           })}
         </div>
 
-        {/* Uniform 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+        {/* Expanding Flex Grid */}
+        <div className="flex flex-wrap -mx-2 md:-mx-3">
           {displayedProjects.length > 0 ? (
             displayedProjects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} onClick={() => onProjectClick && onProjectClick(project)} />
+              <ProjectCard 
+                key={project.title} 
+                project={project} 
+                index={index} 
+                onClick={() => onProjectClick && onProjectClick(project)}
+                isHovered={hoveredId === project.title}
+                isDesktop={isDesktop}
+                onMouseEnter={() => setHoveredId(project.title)}
+                onMouseLeave={() => setHoveredId(null)}
+              />
             ))
           ) : (
-            <div className="col-span-full py-16 text-center font-sans text-brand-grey font-light">
+            <div className="w-full py-16 text-center font-sans text-brand-grey font-light">
               No projects found in this category.
             </div>
           )}
         </div>
         
         {/* Pagination Controls */}
-        <div className="flex justify-center items-center mt-12 gap-8 w-full">
-          {displayCount > 6 && (
+        <div className="flex justify-center items-center mt-6 gap-8 w-full">
+          {displayCount > 8 && (
             <button 
                 onClick={handleShowLess}
                 className="font-sans text-xs uppercase tracking-widest text-brand-grey hover:text-brand-red transition-colors duration-300"
