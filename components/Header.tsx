@@ -46,6 +46,9 @@ const Header: React.FC<HeaderProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const lastScrollY = useRef(0);
 
+  // NEW: Determines if the header should be in "Transparent / White Text" mode
+  const isTop = !isScrolled && !isSearchOpen && !isMobileMenuOpen;
+
   useEffect(() => {
     if (isSearchOpen && searchInputRef.current) {
       searchInputRef.current.focus();
@@ -75,7 +78,6 @@ const Header: React.FC<HeaderProps> = ({
     { name: 'Home', id: 'home' },
     { name: 'Firm', id: 'firm' },
     { name: 'Selected Works', id: 'projects' },
-    // { name: 'Publications', id: 'publications' },
     { name: 'Contact', id: 'contact' },
   ];
 
@@ -94,19 +96,6 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
 
-  const executeSearch = () => {
-    if (inputValue.trim()) {
-      onSearch(inputValue);
-    }
-  };
-
-  const clearSearch = () => {
-    setInputValue('');
-    onClear();
-    // Keep search open but cleared
-    if (searchInputRef.current) searchInputRef.current.focus();
-  };
-
   const closeSearch = () => {
     setInputValue('');
     onClear();
@@ -114,10 +103,10 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isTop ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md shadow-sm'} ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
       <div className="w-full px-6 md:px-12 h-24 flex items-center justify-between max-w-7xl mx-auto relative">
         
-        {/* Logo Section - Hidden on mobile if search is open to save space */}
+        {/* Logo Section */}
         <div 
           className={`flex flex-col md:flex-row md:items-center gap-4 cursor-pointer z-50 group ${isSearchOpen ? 'hidden md:flex' : 'flex'}`} 
           onClick={() => handleNavClick('home')}
@@ -125,7 +114,8 @@ const Header: React.FC<HeaderProps> = ({
           <img 
             src="/images/logo/sjaa-logo.png" 
             alt="SJAA Logo - Shree Jinendra Architect & Associates" 
-            className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+            // CSS Magic: Turns the logo pure white when at the top!
+            className={`h-12 md:h-16 w-auto object-contain transition-all duration-500 group-hover:scale-[1.02] ${isTop ? 'brightness-0 invert opacity-90' : ''}`}
           />
         </div>
 
@@ -136,32 +126,32 @@ const Header: React.FC<HeaderProps> = ({
               <button
                 key={link.name}
                 onClick={() => handleNavClick(link.id)}
-                className="font-sans text-xs font-medium uppercase tracking-widest hover:text-brand-red transition-colors text-brand-grey py-2 relative group"
+                className={`font-sans text-xs font-medium uppercase tracking-widest transition-colors py-2 relative group ${isTop ? 'text-white/90 hover:text-white' : 'text-brand-grey hover:text-brand-red'}`}
               >
                 {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-red transition-all duration-300 group-hover:w-full"></span>
+                <span className={`absolute bottom-0 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${isTop ? 'bg-white' : 'bg-brand-red'}`}></span>
               </button>
             ))}
           </nav>
           
           {/* Social Icons */}
-          <div className="flex items-center gap-4 border-l border-brand-grey/20 pl-6">
-            <a href="https://www.instagram.com/shreejinendra/?hl=en" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors" aria-label="Instagram">
+          <div className={`flex items-center gap-4 border-l pl-6 transition-colors duration-500 ${isTop ? 'border-white/30' : 'border-brand-grey/20'}`}>
+            <a href="https://www.instagram.com/shreejinendra/?hl=en" target="_blank" rel="noopener noreferrer" className={`transition-colors ${isTop ? 'text-white/90 hover:text-white' : 'text-brand-grey hover:text-brand-red'}`} aria-label="Instagram">
               <Instagram size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://www.linkedin.com/company/shreejinendra" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/shreejinendra" target="_blank" rel="noopener noreferrer" className={`transition-colors ${isTop ? 'text-white/90 hover:text-white' : 'text-brand-grey hover:text-brand-red'}`} aria-label="LinkedIn">
               <Linkedin size={20} strokeWidth={1.5} />
             </a>
-            <a href="#" className="text-brand-grey hover:text-brand-red transition-colors" aria-label="YouTube">
+            <a href="#" className={`transition-colors ${isTop ? 'text-white/90 hover:text-white' : 'text-brand-grey hover:text-brand-red'}`} aria-label="YouTube">
               <Youtube size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://wa.me/919314622669" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors" aria-label="WhatsApp">
+            <a href="https://wa.me/919314622669" target="_blank" rel="noopener noreferrer" className={`transition-colors ${isTop ? 'text-white/90 hover:text-white' : 'text-brand-grey hover:text-brand-red'}`} aria-label="WhatsApp">
               <WhatsAppIcon size={20} />
             </a>
           </div>
         </div>
 
-        {/* Search Bar Container - Takes over center/right on activation */}
+        {/* Search Bar Container */}
         <div className={`flex items-center justify-end ${isSearchOpen ? 'w-full md:w-auto absolute left-0 px-6 md:px-0 md:relative' : 'w-auto'}`}>
             
             {/* Expanded Search Controls */}
@@ -178,7 +168,6 @@ const Header: React.FC<HeaderProps> = ({
                       onChange={handleSearchInput}
                       onKeyDown={handleKeyDown}
                     />
-                    {/* Counter */}
                     {totalMatches > 0 && (
                        <span className="font-sans text-[10px] font-medium text-brand-grey/70 whitespace-nowrap ml-2">
                          {currentMatch} of {totalMatches}
@@ -192,7 +181,6 @@ const Header: React.FC<HeaderProps> = ({
                       onClick={onPrev}
                       disabled={totalMatches === 0}
                       className="p-2 hover:bg-brand-grey/5 rounded-full text-brand-grey disabled:opacity-30 transition-colors"
-                      aria-label="Previous Match"
                     >
                       <ChevronUp size={20} strokeWidth={1.5} />
                     </button>
@@ -200,7 +188,6 @@ const Header: React.FC<HeaderProps> = ({
                       onClick={onNext}
                       disabled={totalMatches === 0}
                       className="p-2 hover:bg-brand-grey/5 rounded-full text-brand-grey disabled:opacity-30 transition-colors"
-                      aria-label="Next Match"
                     >
                       <ChevronDown size={20} strokeWidth={1.5} />
                     </button>
@@ -208,7 +195,6 @@ const Header: React.FC<HeaderProps> = ({
                     <button 
                       onClick={closeSearch}
                       className="p-2 hover:text-brand-red text-brand-grey transition-colors"
-                      aria-label="Close Search"
                     >
                       <X size={20} strokeWidth={1.5} />
                     </button>
@@ -218,16 +204,16 @@ const Header: React.FC<HeaderProps> = ({
               <div className="flex items-center gap-4">
                  <button 
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-2 hover:text-brand-red transition-colors duration-300 text-brand-grey"
+                  className={`p-2 transition-colors duration-300 ${isTop ? 'text-white/90 hover:text-white' : 'text-brand-grey hover:text-brand-red'}`}
                   aria-label="Open Search"
                  >
                   <Search size={20} strokeWidth={1.5} />
                  </button>
                  
-                 {/* Mobile Menu Toggle (Visible only when search is closed on mobile) */}
+                 {/* Mobile Menu Toggle */}
                  <div className="md:hidden">
                     <button 
-                      className="text-brand-grey p-2"
+                      className={`p-2 transition-colors duration-300 ${isTop ? 'text-white' : 'text-brand-grey'}`}
                       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                       {isMobileMenuOpen ? <X size={26} strokeWidth={1.5} /> : <Menu size={26} strokeWidth={1.5} />}
@@ -256,16 +242,16 @@ const Header: React.FC<HeaderProps> = ({
           
           {/* Mobile Social Icons */}
           <div className="w-full flex justify-center gap-6 pb-12">
-            <a href="https://www.instagram.com/shreejinendra/?hl=en" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3" aria-label="Instagram">
+            <a href="https://www.instagram.com/shreejinendra/?hl=en" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3">
               <Instagram size={24} strokeWidth={1.5} />
             </a>
-            <a href="https://www.linkedin.com/company/shreejinendra" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/shreejinendra" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3">
               <Linkedin size={24} strokeWidth={1.5} />
             </a>
-            <a href="#" className="text-brand-grey hover:text-brand-red transition-colors p-3" aria-label="YouTube">
+            <a href="#" className="text-brand-grey hover:text-brand-red transition-colors p-3">
               <Youtube size={24} strokeWidth={1.5} />
             </a>
-            <a href="https://wa.me/919314622669" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3" aria-label="WhatsApp">
+            <a href="https://wa.me/919314622669" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3">
               <WhatsAppIcon size={24} />
             </a>
           </div>
