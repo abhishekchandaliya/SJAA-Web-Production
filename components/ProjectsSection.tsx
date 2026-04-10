@@ -240,10 +240,28 @@ const useScrollReveal = () => {
   return { isVisible, domRef };
 };
 
-// Extracted Card to manage individual hover states cleanly
-const ProjectCard = ({ project, onClick, index, isHovered, isDesktop, onMouseEnter, onMouseLeave }: any) => {
+const ProjectCard = ({ project, onClick, index, hoveredIndex, isDesktop, onMouseEnter, onMouseLeave }: any) => {
   const { isVisible, domRef } = useScrollReveal();
-  const delay = (index % 4) * 100; // Adjusted for 4 columns
+  const delay = (index % 4) * 100;
+
+  // FLEX MATH MAGIC: Ensure the row always equals 100%
+  // 1/4 (25%) = standard size. 
+  // 2/5 (40%) = hovered size. 
+  // 1/5 (20%) = squished size for siblings in the same row.
+  const myRow = Math.floor(index / 4);
+  const hoveredRow = hoveredIndex !== null ? Math.floor(hoveredIndex / 4) : -1;
+  
+  let desktopWidthClass = 'lg:w-1/4'; // Default 25%
+
+  if (isDesktop && hoveredIndex !== null) {
+    if (myRow === hoveredRow) {
+      if (index === hoveredIndex) {
+        desktopWidthClass = 'lg:w-2/5'; // Hovered expands to 40%
+      } else {
+        desktopWidthClass = 'lg:w-1/5'; // Siblings shrink to 20%
+      }
+    }
+  }
 
   return (
     <div 
@@ -251,15 +269,11 @@ const ProjectCard = ({ project, onClick, index, isHovered, isDesktop, onMouseEnt
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
-      // Flex accordion magic: If hovered, width transitions to 50% (2/4). If not, stays 25% (1/4).
-      className={`px-2 md:px-3 mb-6 transition-all duration-[700ms] ease-in-out shrink-0 group cursor-pointer flex flex-col
-        w-full md:w-1/2 ${isHovered && isDesktop ? 'lg:w-2/4' : 'lg:w-1/4'}
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-      `}
+      className={`px-2 md:px-3 mb-4 transition-all duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] shrink-0 group cursor-pointer flex flex-col w-full md:w-1/2 ${desktopWidthClass} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
     >
-      {/* Fixed height ensures perfectly straight rows while width smoothly expands */}
-      <div className="relative overflow-hidden mb-2 bg-brand-grey/5 w-full h-56 lg:h-64 rounded-sm">
+      {/* Reduced height slightly to h-[220px] to ensure everything fits perfectly on one screen */}
+      <div className="relative overflow-hidden mb-2 bg-brand-grey/5 w-full h-48 lg:h-[220px] rounded-sm">
         <img 
           src={project.image} 
           alt={project.title} 
@@ -287,12 +301,10 @@ const ProjectCard = ({ project, onClick, index, isHovered, isDesktop, onMouseEnt
 
 const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
   const [activeTab, setActiveTab] = useState<FilterCategory>('All');
-  // Starts at 8 to create a perfect 4+4 layout
   const [displayCount, setDisplayCount] = useState(8);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isDesktop, setIsDesktop] = useState(true);
 
-  // Check screen size to ensure accordion only happens on desktop
   useEffect(() => {
     const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
     checkSize();
@@ -322,7 +334,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
   const handleShowLess = () => {
     setDisplayCount(prev => {
       const newCount = Math.max(8, prev - 8);
-      window.scrollBy({ top: -600, behavior: 'smooth' });
+      window.scrollBy({ top: -400, behavior: 'smooth' });
       return newCount;
     });
   };
@@ -332,30 +344,15 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
     return project.category === activeTab;
   });
 
-  // Base list of projects to show
-  let displayedProjects = filteredProjects.slice(0, displayCount);
-
-  // LOGIC: Maintain a perfect rectangle. If one expands (taking 2 slots), we drop the last item to keep exactly 7 visible items.
-  if (isDesktop && hoveredId && displayedProjects.length % 4 === 0) {
-      const hoveredIndex = displayedProjects.findIndex(p => p.title === hoveredId);
-      if (hoveredIndex !== -1) {
-          const lastIdx = displayedProjects.length - 1;
-          // If hovering the very last item, drop the second-to-last item instead so the hovered one stays visible
-          if (hoveredIndex === lastIdx) {
-              displayedProjects.splice(lastIdx - 1, 1);
-          } else {
-              displayedProjects.splice(lastIdx, 1);
-          }
-      }
-  }
+  const displayedProjects = filteredProjects.slice(0, displayCount);
 
   return (
-    // Compacted height: py-10 md:py-14
-    <section id={id} className="py-10 md:py-14 px-6 md:px-12 bg-white w-full">
+    // Further compacted padding (py-8 md:py-10) to pull bottom elements up
+    <section id={id} className="py-8 md:py-10 px-6 md:px-12 bg-white w-full">
       <div className="max-w-7xl mx-auto">
         
         {/* Header - Compact Spacing */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-4 md:mb-6">
           <div className="flex items-center gap-3 mb-2">
              <span className="h-[1px] w-8 bg-brand-red"></span>
              <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Portfolio</span>
@@ -366,7 +363,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
         </div>
 
         {/* Filters - Tightened layout */}
-        <div className="flex flex-wrap gap-x-5 gap-y-2 mb-8 w-full border-b border-brand-grey/10 pb-2">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6 w-full border-b border-brand-grey/10 pb-2">
           {tabs.map((tab) => {
             const isActive = activeTab === tab;
             return (
@@ -396,10 +393,10 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
                 project={project} 
                 index={index} 
                 onClick={() => onProjectClick && onProjectClick(project)}
-                isHovered={hoveredId === project.title}
+                hoveredIndex={hoveredIndex}
                 isDesktop={isDesktop}
-                onMouseEnter={() => setHoveredId(project.title)}
-                onMouseLeave={() => setHoveredId(null)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               />
             ))
           ) : (
@@ -409,8 +406,8 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
           )}
         </div>
         
-        {/* Pagination Controls */}
-        <div className="flex justify-center items-center mt-6 gap-8 w-full">
+        {/* Pagination Controls - Tightened margins */}
+        <div className="flex justify-center items-center mt-2 gap-8 w-full">
           {displayCount > 8 && (
             <button 
                 onClick={handleShowLess}
