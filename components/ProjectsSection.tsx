@@ -240,28 +240,9 @@ const useScrollReveal = () => {
   return { isVisible, domRef };
 };
 
-const ProjectCard = ({ project, onClick, index, hoveredIndex, isDesktop, onMouseEnter, onMouseLeave }: any) => {
+const ProjectCard = ({ project, onClick, index, isHovered, isDesktop, onMouseEnter, onMouseLeave }: any) => {
   const { isVisible, domRef } = useScrollReveal();
   const delay = (index % 4) * 100;
-
-  // FLEX MATH MAGIC: Ensure the row always equals 100%
-  // 1/4 (25%) = standard size. 
-  // 2/5 (40%) = hovered size. 
-  // 1/5 (20%) = squished size for siblings in the same row.
-  const myRow = Math.floor(index / 4);
-  const hoveredRow = hoveredIndex !== null ? Math.floor(hoveredIndex / 4) : -1;
-  
-  let desktopWidthClass = 'lg:w-1/4'; // Default 25%
-
-  if (isDesktop && hoveredIndex !== null) {
-    if (myRow === hoveredRow) {
-      if (index === hoveredIndex) {
-        desktopWidthClass = 'lg:w-2/5'; // Hovered expands to 40%
-      } else {
-        desktopWidthClass = 'lg:w-1/5'; // Siblings shrink to 20%
-      }
-    }
-  }
 
   return (
     <div 
@@ -269,10 +250,14 @@ const ProjectCard = ({ project, onClick, index, hoveredIndex, isDesktop, onMouse
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
-      className={`px-2 md:px-3 mb-4 transition-all duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] shrink-0 group cursor-pointer flex flex-col w-full md:w-1/2 ${desktopWidthClass} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      // MATHEMATICAL FLEX MAGIC: min-w-0 allows shrinking. flex-[2] makes it twice as wide as siblings (flex-1).
+      className={`min-w-0 transition-all duration-[700ms] ease-out shrink-0 group cursor-pointer flex flex-col
+        ${isHovered && isDesktop ? 'flex-[2]' : 'flex-1'}
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+      `}
       style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
     >
-      {/* Reduced height slightly to h-[220px] to ensure everything fits perfectly on one screen */}
+      {/* Lowered height to h-[220px] for perfect single-screen fit */}
       <div className="relative overflow-hidden mb-2 bg-brand-grey/5 w-full h-48 lg:h-[220px] rounded-sm">
         <img 
           src={project.image} 
@@ -290,8 +275,8 @@ const ProjectCard = ({ project, onClick, index, hoveredIndex, isDesktop, onMouse
         <h4 className="font-serif text-[#1A1A1A] text-base md:text-lg group-hover:text-brand-red transition-colors duration-300 truncate">
           {project.title}
         </h4>
-        <p className="text-[10px] md:text-xs font-sans text-brand-grey/70 mt-0.5 font-light flex items-center gap-1.5">
-          <span className="w-1 h-1 rounded-full bg-brand-red/50"></span>
+        <p className="text-[10px] md:text-xs font-sans text-brand-grey/70 mt-0.5 font-light flex items-center gap-1.5 truncate">
+          <span className="shrink-0 w-1 h-1 rounded-full bg-brand-red/50"></span>
           {project.location}
         </p>
       </div>
@@ -303,13 +288,18 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
   const [activeTab, setActiveTab] = useState<FilterCategory>('All');
   const [displayCount, setDisplayCount] = useState(8);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [cols, setCols] = useState(4);
 
+  // Checks screen size to determine how many items to put in a single row chunk
   useEffect(() => {
-    const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
-    checkSize();
-    window.addEventListener('resize', checkSize);
-    return () => window.removeEventListener('resize', checkSize);
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setCols(4);
+      else if (window.innerWidth >= 768) setCols(2);
+      else setCols(1);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
   
   const tabs: FilterCategory[] = [
@@ -346,12 +336,17 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
 
   const displayedProjects = filteredProjects.slice(0, displayCount);
 
+  // LOGIC: Chunk the projects into strict, unbreakable rows based on screen size
+  const rows = [];
+  for (let i = 0; i < displayedProjects.length; i += cols) {
+    rows.push(displayedProjects.slice(i, i + cols));
+  }
+
   return (
-    // Further compacted padding (py-8 md:py-10) to pull bottom elements up
     <section id={id} className="py-8 md:py-10 px-6 md:px-12 bg-white w-full">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - Compact Spacing */}
+        {/* Header */}
         <div className="mb-4 md:mb-6">
           <div className="flex items-center gap-3 mb-2">
              <span className="h-[1px] w-8 bg-brand-red"></span>
@@ -362,7 +357,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
           </h2>
         </div>
 
-        {/* Filters - Tightened layout */}
+        {/* Filters */}
         <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6 w-full border-b border-brand-grey/10 pb-2">
           {tabs.map((tab) => {
             const isActive = activeTab === tab;
@@ -384,20 +379,28 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
           })}
         </div>
 
-        {/* Expanding Flex Grid */}
-        <div className="flex flex-wrap -mx-2 md:-mx-3">
-          {displayedProjects.length > 0 ? (
-            displayedProjects.map((project, index) => (
-              <ProjectCard 
-                key={project.title} 
-                project={project} 
-                index={index} 
-                onClick={() => onProjectClick && onProjectClick(project)}
-                hoveredIndex={hoveredIndex}
-                isDesktop={isDesktop}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              />
+        {/* The New Unbreakable Row Grid */}
+        <div className="flex flex-col gap-4 md:gap-6">
+          {rows.length > 0 ? (
+            rows.map((row, rowIndex) => (
+              // flex-nowrap completely prevents the glitch where items fall to the next line
+              <div key={rowIndex} className="flex flex-row flex-nowrap w-full gap-3 md:gap-4 lg:gap-6">
+                {row.map((project, colIndex) => {
+                  const globalIndex = rowIndex * cols + colIndex;
+                  return (
+                    <ProjectCard 
+                      key={project.title} 
+                      project={project} 
+                      index={globalIndex} 
+                      onClick={() => onProjectClick && onProjectClick(project)}
+                      isHovered={hoveredIndex === globalIndex}
+                      isDesktop={cols >= 2} // Works safely on tablet and desktop now
+                      onMouseEnter={() => setHoveredIndex(globalIndex)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    />
+                  );
+                })}
+              </div>
             ))
           ) : (
             <div className="w-full py-16 text-center font-sans text-brand-grey font-light">
@@ -406,8 +409,8 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
           )}
         </div>
         
-        {/* Pagination Controls - Tightened margins */}
-        <div className="flex justify-center items-center mt-2 gap-8 w-full">
+        {/* Pagination Controls */}
+        <div className="flex justify-center items-center mt-4 gap-8 w-full">
           {displayCount > 8 && (
             <button 
                 onClick={handleShowLess}
