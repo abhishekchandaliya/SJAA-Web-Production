@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const lastScrollY = useRef(0);
 
-  // NEW: Determines if the header should be in "Transparent / White Text" mode
+  // Determines if the header should be in "Transparent" mode
   const isTop = !isScrolled && !isSearchOpen && !isMobileMenuOpen;
 
   useEffect(() => {
@@ -114,8 +114,8 @@ const Header: React.FC<HeaderProps> = ({
           <img 
             src="/images/logo/sjaa-logo.png" 
             alt="SJAA Logo - Shree Jinendra Architect & Associates" 
-            // CSS Magic: Turns the logo pure white when at the top!
-            className={`h-12 md:h-16 w-auto object-contain transition-all duration-500 group-hover:scale-[1.02] ${isTop ? 'brightness-0 invert opacity-90' : ''}`}
+            // FIX: Removed filters. Logo now uses its original true color at all times.
+            className="h-12 md:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
 
