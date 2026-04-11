@@ -5,13 +5,13 @@ interface SectionProps {
   id: string;
 }
 
-// --- CONFIGURATION OBJECT ---
+// --- CONFIGURATION OBJECT WITH REWRITTEN DESCRIPTIONS ---
 const signatureData = [
   { 
     title: "Vertical Ecosystems", 
     subtitle: "The Living Skin", 
-    desc: "Breathing green planes that soften the built form and purify the air.", 
-    image: "/images/detailing/vertical (1).webp",
+    desc: "We treat every vertical surface as a chance for nature. Our breathing green walls soften structure and clean the air, part of our expertise in crafting healthy, natural environments.", 
+    image: "/images/detailing/vertical (1).webp", // This can be portrait, landscape, etc.
     gallery: [
         "/images/detailing/vertical (2).webp",
         "/images/detailing/vertical (3).webp",
@@ -22,7 +22,7 @@ const signatureData = [
   { 
     title: "Spatial Artifacts", 
     subtitle: "The Visual Anchor", 
-    desc: "Curated forms that punctuate space, holding the gaze in moments of stillness.", 
+    desc: "We believe a space is complete only when the details are personal. We curate and place unique artifacts that define stillness and bring character, reflecting our focus on thoughtful, personal spaces.", 
     image: "/images/detailing/artifacts (1).webp",
     gallery: [
         "/images/detailing/artifacts (2).webp",
@@ -33,7 +33,7 @@ const signatureData = [
   { 
     title: "Aquatic Voids", 
     subtitle: "The Still Reflection", 
-    desc: "Expanses of water mirroring the sky, merging luxury with deep tranquility.", 
+    desc: "Water is our tool for peace. We design quiet pools and reflective surfaces that merge calm with luxury, creating peaceful centers that ground the entire design.", 
     image: "/images/detailing/voids (1).webp",
     gallery: [
         "/images/detailing/voids (2).webp",
@@ -44,7 +44,7 @@ const signatureData = [
   { 
     title: "Native Softscape", 
     subtitle: "The Breath", 
-    desc: "A curated palette of indigenous flora ensuring seasonal rhythm and biodiversity.", 
+    desc: "The right planting makes a design feel alive. We use native plants to create sustainable, biodiverse ecosystems that grow with the space, part of our careful attention to sustainable design.", 
     image: "/images/detailing/softscape (1).webp",
     gallery: [
         "/images/detailing/softscape (2).webp",
@@ -55,7 +55,7 @@ const signatureData = [
   { 
     title: "Privacy Veils", 
     subtitle: "The Light Filter", 
-    desc: "Intricate screens offering seclusion while sculpting light into geometric poetry.", 
+    desc: "Privacy shouldn't be a solid wall. We design intricate screens that create calm seclusion while shaping light into beautiful, moving patterns, reflecting our core ability to blend form and function.", 
     image: "/images/detailing/privacy (1).webp",
     gallery: [
         "/images/detailing/privacy (2).webp",
@@ -66,7 +66,7 @@ const signatureData = [
   { 
     title: "Shadow Frames", 
     subtitle: "The Geometric Interplay", 
-    desc: "Structural lattices that invite nature to climb, casting dancing shadows below.", 
+    desc: "We use structure to play with light. Our frames are built to let nature climb and cast beautiful, dancing shadows below, demonstrating our care for the visual experience of a space.", 
     image: "/images/detailing/shadow (1).webp",
     gallery: [
         "/images/detailing/shadow (2).webp",
@@ -77,7 +77,7 @@ const signatureData = [
   { 
     title: "Aquatic Elements", 
     subtitle: "The Reflection", 
-    desc: "Fluid surfaces mirroring the sky, grounding the built form in a state of calm.", 
+    desc: "Water is our tool for peace. We design quiet pools and reflective surfaces that merge calm with luxury, creating peaceful centers that ground the entire design.", 
     image: "/images/detailing/aquatic (1).webp",
     gallery: [
         "/images/detailing/aquatic (2).webp",
@@ -88,7 +88,7 @@ const signatureData = [
   { 
     title: "Material Textures", 
     subtitle: "The Tactility", 
-    desc: "Raw, tactile surfaces that age gracefully, inviting touch and grounding the sensory experience.", 
+    desc: "The feel of a surface matters. We choose raw, tactile materials that age with grace and bring a space to life, a result of our dedicated care for material selection.", 
     image: "/images/detailing/textures (1).webp",
     gallery: [
         "/images/detailing/textures (2).webp",
@@ -99,7 +99,7 @@ const signatureData = [
   { 
     title: "Pavilions", 
     subtitle: "The Sanctuary", 
-    desc: "Floating shelters that frame the horizon, dissolving boundaries between protection and the open landscape.", 
+    desc: "We create private escapes. Our pavilions are designed as peaceful shelters that connect you with the open view, reflecting our skill in blending inside and outside spaces.", 
     image: "/images/detailing/pavilions (1).webp",
     gallery: [
         "/images/detailing/pavilions (2).webp",
@@ -110,7 +110,7 @@ const signatureData = [
   { 
     title: "Canopies", 
     subtitle: "The Light Play", 
-    desc: "Overhead planes filtering sunlight into ephemeral patterns, creating a dynamic dance of shadow.", 
+    desc: "We use structure to play with light. Our frames are built to let nature climb and cast beautiful, dancing shadows below, demonstrating our care for the visual experience of a space.", 
     image: "/images/detailing/canopies (1).webp",
     gallery: [
         "/images/detailing/canopies (1).webp",
@@ -160,10 +160,10 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
 
 
   return (
-    // Compacted vertical padding to match the portfolio section
+    // Compacted vertical padding to match the portfolio section (py-10 md:py-14)
     <section id={id} className="py-10 md:py-14 bg-[#111111] text-white w-full overflow-hidden relative">
       
-      {/* Header Container - Padding aligned perfectly with the rest of the site */}
+      {/* Strict alignment: The content container has the same structure and padding as the global Portfolio container */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8 md:mb-10">
         <div className="flex items-center gap-3 mb-2">
            <span className="h-[1px] w-8 bg-brand-red"></span>
@@ -172,41 +172,45 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
         <h2 className="text-3xl md:text-4xl font-serif leading-tight">
           Design Articulation
         </h2>
-        {/* Rewritten, humanized text that stays linear */}
+        {/* Rewritten subheading that is simple, professional, and linear */}
         <p className="text-sm md:text-base font-sans text-white/70 mt-3 font-light max-w-3xl leading-relaxed">
            These represent our core areas of expertise. We believe that true design excellence lives in the details, and we care deeply about crafting every single element within the spaces we shape.
         </p>
       </div>
 
-      {/* Horizontal Carousel Container - Smart padding to keep the left side aligned while letting the right side bleed */}
+      {/* NEW: Flexibility Container - Bleeds on the right while staying perfectly aligned on the left */}
       <div className="w-full pl-6 md:pl-12 xl:pl-[calc((100vw-80rem)/2+3rem)]">
         <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {signatureData.map((el, index) => (
                 <div 
                     key={index} 
                     onClick={() => setSelectedElement(el)}
-                    // Slightly reduced card width to ensure the section doesn't feel too tall
+                    // Reduced card size slightly to make the section feel more compact
                     className="flex-none w-[80vw] md:w-[280px] lg:w-[320px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
                 >
-                    {/* Background Image */}
-                    <img 
-                        src={el.image} 
-                        alt={el.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105 pointer-events-none"
-                    />
-                    
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
+                    {/* NEW: Aspect-ratio driven flexible grid. The inner flex-col ensures straight edges while width adapts. */}
+                    <div className="absolute inset-0 w-full h-full flex flex-col group">
+                        
+                        {/* Background Image - The aspect-[3/4] on the parent handles orientation flexibility */}
+                        <img 
+                            src={el.image} 
+                            alt={el.title} 
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105 pointer-events-none"
+                        />
+                        
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
 
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col justify-end pointer-events-none z-10">
-                        <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-3 opacity-90 group-hover:opacity-100">
-                            <h4 className="text-xl md:text-2xl font-serif text-white mb-1.5">
-                                {el.title}
-                            </h4>
-                            <p className="text-xs font-sans text-brand-red tracking-wide font-medium">
-                                {el.subtitle}
-                            </p>
+                        {/* Content */}
+                        <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col justify-end pointer-events-none z-10">
+                            <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-3 opacity-90 group-hover:opacity-100">
+                                <h4 className="text-xl md:text-2xl font-serif text-white mb-1.5 truncate">
+                                    {el.title}
+                                </h4>
+                                <p className="text-xs font-sans text-brand-red tracking-wide font-medium">
+                                    {el.subtitle}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
