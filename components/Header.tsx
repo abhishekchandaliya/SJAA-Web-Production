@@ -46,8 +46,38 @@ const Header: React.FC<HeaderProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const lastScrollY = useRef(0);
 
-  // Determines if the header should be in "Transparent" mode
   const isTop = !isScrolled && !isSearchOpen && !isMobileMenuOpen;
+
+  // FIX 1: Lock body scroll when mobile menu or search is open
+  useEffect(() => {
+    if (isMobileMenuOpen || isSearchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileMenuOpen, isSearchOpen]);
+
+  // FIX 2: Handle Android Hardware Back Button
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      } else if (isSearchOpen) {
+        setIsSearchOpen(false);
+      }
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [isMobileMenuOpen, isSearchOpen]);
+
+  // Push a state history when menu opens so the back button knows to catch it
+  useEffect(() => {
+    if (isMobileMenuOpen || isSearchOpen) {
+      window.history.pushState({ menuOpen: true }, '');
+    }
+  }, [isMobileMenuOpen, isSearchOpen]);
 
   useEffect(() => {
     if (isSearchOpen && searchInputRef.current) {
@@ -58,10 +88,10 @@ const Header: React.FC<HeaderProps> = ({
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
       setIsScrolled(currentScrollY > 50);
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+      // Do not hide the header if the mobile menu is open!
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen) {
         setIsHidden(true);
       } else {
         setIsHidden(false);
@@ -72,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: 'Home', id: 'home' },
@@ -103,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isTop ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md shadow-sm'} ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isTop ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md shadow-sm'} ${(isHidden && !isMobileMenuOpen) ? '-translate-y-full' : 'translate-y-0'}`}>
       <div className="w-full px-6 md:px-12 h-24 flex items-center justify-between max-w-7xl mx-auto relative">
         
         {/* Logo Section */}
@@ -114,7 +144,6 @@ const Header: React.FC<HeaderProps> = ({
           <img 
             src="/images/logo/sjaa-logo.png" 
             alt="SJAA Logo - Shree Jinendra Architect & Associates" 
-            // FIX: Removed filters. Logo now uses its original true color at all times.
             className="h-12 md:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
@@ -211,7 +240,7 @@ const Header: React.FC<HeaderProps> = ({
                  </button>
                  
                  {/* Mobile Menu Toggle */}
-                 <div className="md:hidden">
+                 <div className="md:hidden z-50">
                     <button 
                       className={`p-2 transition-colors duration-300 ${isTop ? 'text-white' : 'text-brand-grey'}`}
                       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -227,8 +256,8 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && !isSearchOpen && (
-        <div className="fixed inset-0 top-0 left-0 w-full h-screen bg-white z-40 flex flex-col animate-fade-in md:hidden pt-24">
-          <div className="flex flex-col items-center justify-center gap-8 flex-grow">
+        <div className="fixed inset-0 top-0 left-0 w-full h-[100dvh] bg-white z-40 flex flex-col animate-fade-in md:hidden pt-24 pb-8 overflow-y-auto">
+          <div className="flex flex-col items-center justify-center gap-8 flex-grow my-auto">
             {navLinks.map((link) => (
               <button
                 key={link.name}
@@ -241,7 +270,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
           
           {/* Mobile Social Icons */}
-          <div className="w-full flex justify-center gap-6 pb-12">
+          <div className="w-full flex justify-center gap-6 mt-auto">
             <a href="https://www.instagram.com/shreejinendra/?hl=en" target="_blank" rel="noopener noreferrer" className="text-brand-grey hover:text-brand-red transition-colors p-3">
               <Instagram size={24} strokeWidth={1.5} />
             </a>
