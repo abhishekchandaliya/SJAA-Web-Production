@@ -30,35 +30,35 @@ const useScrollReveal = () => {
 const partners = [
   {
     logo: "/images/partners/rajkumar architects.png",
-    quote: "Abhishek's understanding of landscape is incredible. Working with SJAA is always seamless because they care as much about the final on-site execution as they do about the initial design. They are a fantastic partner for our projects.",
+    quote: "Abhishek understands landscapes in a way very few do. His attention to detail and hands-on execution make him a perfect partner for our projects.",
     name: "Ar. Rajkumar Kumawat",
     role: "Principal Architect",
     firm: "Rajkumar Architects"
   },
   {
     logo: "/images/partners/ruby amit.png",
-    quote: "SJAA bridges the gap between complex architecture and the natural environment perfectly. They are easily one of the most technically grounded, reliable, and collaborative landscape practices we've ever worked with.",
+    quote: "SJAA seamlessly connects architecture with nature. They are practically the most reliable and technically sound landscape team we work with.",
     name: "Ar. Amit Goswami",
     role: "Principal Architect",
     firm: "Ruby & Amit Architects"
   },
   {
     logo: "/images/partners/genesis.png",
-    quote: "Abhishek and his team bring a level of technical detail that always elevates our buildings. Their dedication doesn't stop at the drawing board; they are right there on-site ensuring everything is built perfectly.",
+    quote: "SJAA's practical approach to landscape design always elevates our projects. They stay committed from the first sketch to the final planting.",
     name: "Ar. Raghuveer Singh",
     role: "Principal Architect",
     firm: "Genesis Design Studio"
   },
   {
     logo: "/images/partners/insight.png",
-    quote: "SJAA's eye for detail brings a living, breathing dimension to our architectural work. They truly understand how to make a space feel grounded, natural, and effortlessly integrated.",
-    name: "Ar. Hridyesh Singh",
+    quote: "Abhishek's deep focus on detailing gives our architectural projects a living, breathing quality that our clients absolutely love.",
+    name: "Ar. Hridyesh",
     role: "Principal Architect",
     firm: "Insight ~ An Architecture Studio"
   },
   {
     logo: "/images/partners/sheetal.png",
-    quote: "Collaborating with SJAA is always a great experience. They are highly responsive, deeply knowledgeable, and always ensure the landscape execution matches the design intent flawlessly.",
+    quote: "Working with SJAA means getting a beautiful, modern landscape. Their teamwork and flawless execution make them our go-to practice.",
     name: "Ar. Sheetal Agarwal",
     role: "Principal Architect",
     firm: "Sheetal Agarwal & Associates"
@@ -72,7 +72,7 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
 
   const scrollCarousel = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
-      const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 340;
+      const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 350;
       carouselRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
@@ -81,36 +81,40 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
   };
 
   return (
-    // Severely reduced padding to pull the sections tightly together
-    <section id={id} className="py-10 md:py-12 px-6 md:px-12 bg-white w-full border-t border-brand-grey/5 overflow-hidden">
+    // Heavily compacted padding (py-8 md:py-10) to allow stacking
+    <section id={id} className="py-8 md:py-10 px-6 md:px-12 bg-white w-full border-t border-brand-grey/5 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header with Arrows */}
+        {/* Header - Aligned left to save vertical space, with arrows on the right */}
         <div 
           ref={headerRef}
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 transition-all duration-1000 ease-out ${
+          className={`mb-6 md:mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 transition-all duration-1000 ease-out ${
             isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-serif text-[#1A1A1A] leading-tight mb-2">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+               <span className="h-[1px] w-8 bg-brand-red"></span>
+               <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Partnerships</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-serif text-[#1A1A1A] leading-tight">
               Integrated Design Alliances
             </h2>
-            <p className="font-sans text-brand-grey font-light leading-relaxed text-sm md:text-base">
-              Collaborating with top-tier architects and developers to deliver complex master plans, bringing ecological expertise to the table.
-            </p>
           </div>
-
-          <div className="flex items-center gap-3 shrink-0">
+          
+          {/* Navigation Arrows */}
+          <div className="flex items-center gap-3 shrink-0 hidden md:flex">
               <button 
                   onClick={() => scrollCarousel('left')} 
-                  className="p-2.5 rounded-full border border-brand-grey/20 text-brand-grey/60 hover:bg-brand-grey/5 hover:text-brand-grey transition-all focus:outline-none"
+                  className="p-2.5 rounded-full border border-brand-grey/20 text-brand-grey/50 hover:bg-brand-grey/5 hover:text-brand-grey hover:border-brand-grey/40 transition-all focus:outline-none"
+                  aria-label="Scroll Left"
               >
                   <ChevronLeft size={20} strokeWidth={1.5} />
               </button>
               <button 
                   onClick={() => scrollCarousel('right')} 
-                  className="p-2.5 rounded-full border border-brand-grey/20 text-brand-grey/60 hover:bg-brand-grey/5 hover:text-brand-grey transition-all focus:outline-none"
+                  className="p-2.5 rounded-full border border-brand-grey/20 text-brand-grey/50 hover:bg-brand-grey/5 hover:text-brand-grey hover:border-brand-grey/40 transition-all focus:outline-none"
+                  aria-label="Scroll Right"
               >
                   <ChevronRight size={20} strokeWidth={1.5} />
               </button>
@@ -120,17 +124,18 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
         {/* Partner Cards Horizontal Track */}
         <div 
           ref={trackRef}
-          className={`flex flex-nowrap overflow-x-auto gap-6 lg:gap-8 pb-4 pt-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] -mx-6 px-6 md:-mx-12 md:px-12 cursor-ew-resize transition-all duration-1000 delay-100 ease-out ${
-            isTrackVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+          className={`transition-all duration-1000 delay-100 ease-out ${isTrackVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
-            {/* The invisible scrolling container */}
-            <div ref={carouselRef} className="flex flex-nowrap gap-6 lg:gap-8 w-full overflow-x-auto scrollbar-hide scroll-smooth">
+          <div 
+            ref={carouselRef}
+            className="flex flex-nowrap overflow-x-auto gap-4 md:gap-6 pb-4 pt-2 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
               {partners.map((partner, index) => (
-                  <div key={index} className="shrink-0 snap-center flex flex-col items-center text-center w-[85vw] md:w-[320px] lg:w-[360px] group border border-brand-grey/5 rounded-sm p-6 bg-[#FAFAFA] hover:shadow-sm transition-all duration-300">
+                  <div key={index} className="shrink-0 snap-center flex flex-col justify-between p-6 md:p-8 bg-brand-grey/5 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group border border-transparent hover:border-brand-red/10 transition-colors">
                       
                       {/* Logo Area */}
-                      <div className="h-10 mb-5 flex items-center justify-center">
+                      <div className="h-8 mb-5 flex items-center justify-start">
                           <img 
                             src={partner.logo} 
                             alt={`${partner.firm} Logo`} 
@@ -139,26 +144,26 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
                           />
                       </div>
 
-                      {/* Quote - Shrunk to body text size */}
-                      <p className="font-sans font-light text-brand-grey mb-6 mt-auto leading-relaxed text-sm">
+                      {/* Body Text: Shrunk and Simplified */}
+                      <p className="font-sans font-light italic text-brand-grey/80 mb-6 text-sm leading-relaxed">
                           "{partner.quote}"
                       </p>
 
                       {/* Divider */}
-                      <div className="w-8 h-[1px] bg-brand-red/30 group-hover:bg-brand-red group-hover:w-12 transition-all duration-500 mb-5"></div>
+                      <div className="w-6 h-[1px] bg-brand-red/30 group-hover:bg-brand-red group-hover:w-12 transition-all duration-500 mb-4"></div>
 
-                      {/* Sign-off - Increased prominence and serif font */}
-                      <div className="space-y-1">
-                          <h5 className="text-lg font-serif text-[#1A1A1A] tracking-wide">
+                      {/* Sign-off: Boosted Size */}
+                      <div className="space-y-0.5">
+                          <h5 className="text-base md:text-lg font-serif font-medium text-[#1A1A1A]">
                               {partner.name}
                           </h5>
-                          <p className="text-[10px] md:text-xs font-sans text-brand-red font-medium tracking-widest uppercase">
+                          <p className="text-[11px] md:text-xs font-sans text-brand-red font-medium tracking-wide">
                               {partner.role}, {partner.firm}
                           </p>
                       </div>
                   </div>
               ))}
-            </div>
+          </div>
         </div>
       </div>
     </section>
