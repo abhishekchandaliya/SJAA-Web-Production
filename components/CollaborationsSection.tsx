@@ -81,14 +81,14 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
   };
 
   return (
-    // Heavily compacted padding (py-8 md:py-10) to allow stacking
-    <section id={id} className="py-8 md:py-10 px-6 md:px-12 bg-white w-full border-t border-brand-grey/5 overflow-hidden">
+    // Top padding normal, bottom padding severely reduced to merge with next section
+    <section id={id} className="pt-10 md:pt-14 pb-2 md:pb-4 px-6 md:px-12 bg-white w-full border-t border-brand-grey/5 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - Aligned left to save vertical space, with arrows on the right */}
+        {/* Header - Tightened bottom margin */}
         <div 
           ref={headerRef}
-          className={`mb-6 md:mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 transition-all duration-1000 ease-out ${
+          className={`mb-5 md:mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 transition-all duration-1000 ease-out ${
             isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
@@ -132,27 +132,28 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
               {partners.map((partner, index) => (
-                  <div key={index} className="shrink-0 snap-center flex flex-col justify-between p-6 md:p-8 bg-brand-grey/5 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group border border-transparent hover:border-brand-red/10 transition-colors">
+                  // Compacted card padding (p-5 md:p-6)
+                  <div key={index} className="shrink-0 snap-center flex flex-col justify-between p-5 md:p-6 bg-brand-grey/5 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group border border-transparent hover:border-brand-red/10 transition-colors">
                       
                       {/* Logo Area */}
-                      <div className="h-8 mb-5 flex items-center justify-start">
+                      <div className="h-8 mb-4 flex items-center justify-start">
                           <img 
                             src={partner.logo} 
                             alt={`${partner.firm} Logo`} 
-                            className="max-h-[30px] object-contain grayscale opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                            className="max-h-[28px] object-contain grayscale opacity-60 transition-opacity duration-500 group-hover:opacity-100"
                             referrerPolicy="no-referrer"
                           />
                       </div>
 
-                      {/* Body Text: Shrunk and Simplified */}
-                      <p className="font-sans font-light italic text-brand-grey/80 mb-6 text-sm leading-relaxed">
+                      {/* Body Text */}
+                      <p className="font-sans font-light italic text-brand-grey/80 mb-5 text-sm leading-relaxed">
                           "{partner.quote}"
                       </p>
 
                       {/* Divider */}
                       <div className="w-6 h-[1px] bg-brand-red/30 group-hover:bg-brand-red group-hover:w-12 transition-all duration-500 mb-4"></div>
 
-                      {/* Sign-off: Boosted Size */}
+                      {/* Sign-off */}
                       <div className="space-y-0.5">
                           <h5 className="text-base md:text-lg font-serif font-medium text-[#1A1A1A]">
                               {partner.name}

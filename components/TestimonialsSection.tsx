@@ -71,14 +71,14 @@ const TestimonialsSection: React.FC<SectionProps> = ({ id }) => {
   };
 
   return (
-    // Heavily compacted padding (py-8 md:py-10) to allow stacking
-    <section id={id} className="py-8 md:py-10 px-6 md:px-12 bg-[#F9F9F9] w-full overflow-hidden">
+    // Top padding severely reduced to merge with previous section, background set to white
+    <section id={id} className="pt-2 md:pt-4 pb-10 md:pb-14 px-6 md:px-12 bg-white w-full overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - Aligned left with arrows on the right */}
+        {/* Header - Tightened margins */}
         <div 
             ref={headerRef}
-            className={`mb-6 md:mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 transition-all duration-1000 ease-out ${
+            className={`mb-5 md:mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 transition-all duration-1000 ease-out ${
                 isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
         >
@@ -124,14 +124,15 @@ const TestimonialsSection: React.FC<SectionProps> = ({ id }) => {
             {testimonials.map((t, index) => (
               <div 
                 key={index} 
-                className="shrink-0 snap-center flex flex-col p-6 md:p-8 bg-white border border-brand-grey/5 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group shadow-sm hover:shadow-md transition-shadow"
+                // Enhanced shadow and borders to make cards stand out on pure white background
+                className="shrink-0 snap-center flex flex-col justify-between p-5 md:p-6 bg-white border border-brand-grey/10 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.1)] transition-all duration-300"
               >
-                <div className="mb-4 opacity-30 group-hover:opacity-60 transition-opacity duration-500">
+                <div className="mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-500">
                   <i className="fa-solid fa-quote-left text-brand-red text-lg"></i>
                 </div>
                 
-                {/* Body Text: Shrunk and Simplified */}
-                <p className="font-sans font-light italic text-brand-grey/80 mb-8 text-sm leading-relaxed">
+                {/* Body Text */}
+                <p className="font-sans font-light italic text-brand-grey/80 mb-6 text-sm leading-relaxed">
                   "{t.quote}"
                 </p>
                 
@@ -139,7 +140,7 @@ const TestimonialsSection: React.FC<SectionProps> = ({ id }) => {
                   {/* The Animated Line */}
                   <div className="h-[1px] bg-brand-red/30 w-6 group-hover:w-12 group-hover:bg-brand-red transition-all duration-500 mb-4"></div>
                   
-                  {/* Sign-off: Boosted Size */}
+                  {/* Sign-off */}
                   <p className="text-base md:text-lg font-serif font-medium text-[#1A1A1A] mb-0.5">
                     {t.author}
                   </p>
