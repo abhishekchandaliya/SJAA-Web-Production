@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface SectionProps {
   id: string;
@@ -123,14 +123,43 @@ const signatureData = [
 const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
   const [selectedElement, setSelectedElement] = useState<typeof signatureData[0] | null>(null);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  
+  // FIX 1: Exact Mathematical Padding Calculation for Flawless Alignment
+  const [padLeft, setPadLeft] = useState('1.5rem'); // Default mobile padding
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateAlignment = () => {
+      if (window.innerWidth >= 1280) {
+        // 80rem is 1280px (max-w-7xl). This finds the exact pixel gap from the screen edge.
+        setPadLeft('calc((100vw - 80rem) / 2)');
+      } else if (window.innerWidth >= 768) {
+        setPadLeft('3rem'); // md:px-12
+      } else {
+        setPadLeft('1.5rem'); // px-6
+      }
+    };
+    updateAlignment();
+    window.addEventListener('resize', updateAlignment);
+    return () => window.removeEventListener('resize', updateAlignment);
+  }, []);
+
+  // FIX 2: Smooth Scrolling Arrows
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      // Scrolls by roughly one card width
+      const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 344;
+      carouselRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // Body scroll lock on modal open
   useEffect(() => {
-    if (selectedElement) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    if (selectedElement) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
     return () => { document.body.style.overflow = 'unset'; };
   }, [selectedElement]);
 
@@ -170,44 +199,64 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
 
 
   return (
-    // FIX 1: Removed pl-12 from the main section wrapper so we can control alignment via the container
     <section id={id} className="py-10 md:py-14 bg-[#111111] text-white w-full overflow-hidden relative">
       
-      {/* FIX 2: Restored the max-w-7xl mx-auto container to perfectly align with "Selected Works" */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-6 md:mb-8 w-full">
-        <div className="flex items-center gap-3 mb-2">
-           <span className="h-[1px] w-8 bg-brand-red"></span>
-           <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Detailing</span>
+      {/* Header Container - Flawlessly matching the previous section's layout */}
+      <div className="px-6 md:px-12 w-full">
+        <div className="max-w-7xl mx-auto mb-6 md:mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-3xl">
+                <div className="flex items-center gap-3 mb-2">
+                <span className="h-[1px] w-8 bg-brand-red"></span>
+                <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Detailing</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-serif leading-tight">
+                Design Articulation
+                </h2>
+                {/* Fully responsive single-line subtext */}
+                <p className="text-sm md:text-base font-sans text-white/70 mt-3 font-light leading-relaxed">
+                These represent our core areas of expertise. We believe that true design excellence lives in the details, and we care deeply about crafting every single element within the spaces we shape.
+                </p>
+            </div>
+            
+            {/* Elegant Navigation Arrows */}
+            <div className="flex items-center gap-3 shrink-0">
+                <button 
+                    onClick={() => scrollCarousel('left')} 
+                    className="p-3 rounded-full border border-white/20 text-white/50 hover:bg-white/10 hover:text-white hover:border-white/40 transition-all focus:outline-none"
+                    aria-label="Scroll Left"
+                >
+                    <ChevronLeft size={24} strokeWidth={1.5} />
+                </button>
+                <button 
+                    onClick={() => scrollCarousel('right')} 
+                    className="p-3 rounded-full border border-white/20 text-white/50 hover:bg-white/10 hover:text-white hover:border-white/40 transition-all focus:outline-none"
+                    aria-label="Scroll Right"
+                >
+                    <ChevronRight size={24} strokeWidth={1.5} />
+                </button>
+            </div>
         </div>
-        <h2 className="text-3xl md:text-4xl font-serif leading-tight">
-          Design Articulation
-        </h2>
-        {/* FIX 3: Removed width restrictions so this stays on a single line on desktop */}
-        <p className="text-sm md:text-base font-sans text-white/70 mt-3 font-light leading-relaxed">
-           These represent our core areas of expertise. We believe that true design excellence lives in the details, and we care deeply about crafting every single element within the spaces we shape.
-        </p>
       </div>
 
-      {/* Horizontal Carousel Container */}
-      <div className="w-full pl-6 md:pl-12 xl:pl-[calc((100vw-80rem)/2+3rem)]">
-        <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      {/* Horizontal Carousel Container - Powered by the math calculation */}
+      <div className="w-full" style={{ paddingLeft: padLeft }}>
+        <div 
+            ref={carouselRef}
+            className="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory scrollbar-hide pr-12" 
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
             {signatureData.map((el, index) => (
                 <div 
                     key={index} 
                     onClick={() => setSelectedElement(el)}
                     className="flex-none w-[80vw] md:w-[280px] lg:w-[320px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
                 >
-                    {/* Background Image */}
                     <img 
                         src={el.image} 
                         alt={el.title} 
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105 pointer-events-none"
                     />
-                    
-                    {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
-
-                    {/* Content */}
                     <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col justify-end pointer-events-none z-10">
                         <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-3 opacity-90 group-hover:opacity-100">
                             <h4 className="text-xl md:text-2xl font-serif text-white mb-1.5">
@@ -220,7 +269,6 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     </div>
                 </div>
             ))}
-            <div className="flex-none w-6 md:w-12"></div>
         </div>
       </div>
 
@@ -249,7 +297,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     </p>
                 </div>
 
-                {/* FIX 4: The Masonry Grid. Prevents overlapping and respects aspect ratio without cropping. */}
+                {/* The Masonry Grid - Ensures images never crop, stretch, or overlap */}
                 <div className="flex-1 overflow-y-auto pb-8 scrollbar-hide">
                     <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
                         
