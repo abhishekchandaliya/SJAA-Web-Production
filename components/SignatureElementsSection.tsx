@@ -124,7 +124,6 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
   const [selectedElement, setSelectedElement] = useState<typeof signatureData[0] | null>(null);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
-  // Handle Escape Key & Mobile Back Button
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -136,7 +135,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
     const handlePopState = (e: PopStateEvent) => {
       if (fullscreenImage) {
         setFullscreenImage(null);
-        window.history.pushState({ modal: true }, ''); // Re-trap for the modal
+        window.history.pushState({ modal: true }, ''); 
       } else if (selectedElement) {
         setSelectedElement(null);
       }
@@ -151,7 +150,6 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
     };
   }, [fullscreenImage, selectedElement]);
 
-  // Trap back button when modal opens
   useEffect(() => {
     if (selectedElement && !fullscreenImage) {
       window.history.pushState({ modal: true }, '');
@@ -162,32 +160,33 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
 
 
   return (
-    <section id={id} className="py-20 md:py-24 bg-[#111111] text-white w-full overflow-hidden relative">
-      <div className="w-full px-6 md:px-12 mb-12 md:mb-16 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div className="md:col-span-12">
-            <div className="flex items-center gap-3 mb-4">
-               <span className="h-[1px] w-8 bg-brand-red"></span>
-               <span className="text-brand-red font-sans text-sm tracking-wide">Detailing</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-serif leading-tight">
-              Design Articulation
-            </h2>
-            <p className="text-base md:text-lg font-sans text-white/60 mt-4 font-light max-w-xl leading-relaxed">
-               The nuanced details and sensory layers that compose our spatial narrative.
-            </p>
-          </div>
+    // Compacted vertical padding to match the portfolio section
+    <section id={id} className="py-10 md:py-14 bg-[#111111] text-white w-full overflow-hidden relative">
+      
+      {/* Header Container - Padding aligned perfectly with the rest of the site */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8 md:mb-10">
+        <div className="flex items-center gap-3 mb-2">
+           <span className="h-[1px] w-8 bg-brand-red"></span>
+           <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Detailing</span>
         </div>
+        <h2 className="text-3xl md:text-4xl font-serif leading-tight">
+          Design Articulation
+        </h2>
+        {/* Rewritten, humanized text that stays linear */}
+        <p className="text-sm md:text-base font-sans text-white/70 mt-3 font-light max-w-3xl leading-relaxed">
+           These represent our core areas of expertise. We believe that true design excellence lives in the details, and we care deeply about crafting every single element within the spaces we shape.
+        </p>
       </div>
 
-      {/* Horizontal Carousel Container */}
-      <div className="w-full pl-6 md:pl-12">
-        <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      {/* Horizontal Carousel Container - Smart padding to keep the left side aligned while letting the right side bleed */}
+      <div className="w-full pl-6 md:pl-12 xl:pl-[calc((100vw-80rem)/2+3rem)]">
+        <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {signatureData.map((el, index) => (
                 <div 
                     key={index} 
                     onClick={() => setSelectedElement(el)}
-                    className="flex-none w-[85vw] md:w-[350px] lg:w-[400px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
+                    // Slightly reduced card width to ensure the section doesn't feel too tall
+                    className="flex-none w-[80vw] md:w-[280px] lg:w-[320px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
                 >
                     {/* Background Image */}
                     <img 
@@ -200,12 +199,12 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
 
                     {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end pointer-events-none z-10">
-                        <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-4 opacity-90 group-hover:opacity-100">
-                            <h4 className="text-2xl md:text-3xl font-serif text-white mb-2">
+                    <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col justify-end pointer-events-none z-10">
+                        <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-3 opacity-90 group-hover:opacity-100">
+                            <h4 className="text-xl md:text-2xl font-serif text-white mb-1.5">
                                 {el.title}
                             </h4>
-                            <p className="text-sm font-sans text-brand-red tracking-wide font-medium">
+                            <p className="text-xs font-sans text-brand-red tracking-wide font-medium">
                                 {el.subtitle}
                             </p>
                         </div>
@@ -219,7 +218,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
 
       {/* Gallery Modal */}
       {selectedElement && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-12 animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8 animate-fade-in">
             <button 
                 onClick={() => setSelectedElement(null)} 
                 className="absolute top-6 right-6 z-50 p-2 text-white/50 hover:text-white bg-white/5 hover:bg-white/15 rounded-full transition-all"
@@ -228,22 +227,22 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                 <X size={32} strokeWidth={1.5} />
             </button>
             
-            <div className="max-w-7xl w-full h-full flex flex-col overflow-hidden pt-8 md:pt-0">
+            <div className="max-w-7xl w-full h-full flex flex-col overflow-hidden pt-12 md:pt-0">
                 {/* Modal Header */}
-                <div className="mb-10 shrink-0">
-                    <span className="text-brand-red font-sans tracking-wide text-sm font-medium block mb-3">
+                <div className="mb-6 shrink-0">
+                    <span className="text-brand-red font-sans tracking-wide text-xs font-medium uppercase block mb-2">
                         {selectedElement.subtitle}
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+                    <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">
                         {selectedElement.title}
                     </h2>
-                    <p className="text-white/70 font-sans font-light max-w-2xl leading-relaxed text-base md:text-lg border-l-2 border-brand-red/50 pl-5">
+                    <p className="text-white/70 font-sans font-light max-w-2xl leading-relaxed text-sm md:text-base border-l-2 border-brand-red/50 pl-4">
                         {selectedElement.desc}
                     </p>
                 </div>
 
                 {/* Modal Gallery Grid */}
-                <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 pb-8 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 pb-8 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {/* Main Image */}
                     <div 
                         className="col-span-12 md:col-span-8 lg:col-span-6 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group cursor-pointer"
@@ -273,7 +272,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                 </div>
             </div>
 
-            {/* NEW: Fullscreen Lightbox Overlay */}
+            {/* Fullscreen Lightbox Overlay */}
             {fullscreenImage && (
               <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-xl p-4 animate-fade-in">
                 <button 
