@@ -10,7 +10,6 @@ const signatureData = [
   { 
     title: "Vertical Ecosystems", 
     subtitle: "The Living Skin", 
-    // Simplified, grounded description
     desc: "We integrate living green planes into our designs to soften hard surfaces and help clean the air. These elements are more than just decoration; they are a vital, breathing skin for your space.", 
     image: "/images/detailing/vertical (1).webp",
     gallery: [
@@ -146,7 +145,7 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
     const handlePopState = (e: PopStateEvent) => {
       if (fullscreenImage) {
         setFullscreenImage(null);
-        window.history.pushState({ modal: true }, ''); // Re-trap for the modal
+        window.history.pushState({ modal: true }, ''); 
       } else if (selectedElement) {
         setSelectedElement(null);
       }
@@ -171,33 +170,32 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
 
 
   return (
-    // FIX 1: Applied left padding here to align the entire component
-    <section id={id} className="py-20 md:py-24 px-6 md:pl-12 bg-[#111111] text-white w-full overflow-hidden relative">
+    // FIX 1: Removed pl-12 from the main section wrapper so we can control alignment via the container
+    <section id={id} className="py-10 md:py-14 bg-[#111111] text-white w-full overflow-hidden relative">
       
-      {/* Header Container */}
-      <div className="mb-12 md:mb-16">
-        <div className="flex items-center gap-3 mb-4">
+      {/* FIX 2: Restored the max-w-7xl mx-auto container to perfectly align with "Selected Works" */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-6 md:mb-8 w-full">
+        <div className="flex items-center gap-3 mb-2">
            <span className="h-[1px] w-8 bg-brand-red"></span>
            <span className="text-brand-red font-sans text-xs uppercase tracking-wide font-medium">Detailing</span>
         </div>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif leading-tight">
+        <h2 className="text-3xl md:text-4xl font-serif leading-tight">
           Design Articulation
         </h2>
-        {/* Simplified description text that stays linear */}
-        <p className="text-sm md:text-base font-sans text-white/60 mt-4 font-light max-w-xl leading-relaxed">
-           This is our core detailing. We focus deeply on crafting these key elements, as true design excellence lives in the details.
+        {/* FIX 3: Removed width restrictions so this stays on a single line on desktop */}
+        <p className="text-sm md:text-base font-sans text-white/70 mt-3 font-light leading-relaxed">
+           These represent our core areas of expertise. We believe that true design excellence lives in the details, and we care deeply about crafting every single element within the spaces we shape.
         </p>
       </div>
 
-      {/* Horizontal Carousel Container - Aligned left */}
-      <div className="w-full">
-        <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      {/* Horizontal Carousel Container */}
+      <div className="w-full pl-6 md:pl-12 xl:pl-[calc((100vw-80rem)/2+3rem)]">
+        <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {signatureData.map((el, index) => (
                 <div 
                     key={index} 
                     onClick={() => setSelectedElement(el)}
-                    // Main carousel images set to PORTRAIT 3:4 aspect
-                    className="flex-none w-[85vw] md:w-[350px] lg:w-[400px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
+                    className="flex-none w-[80vw] md:w-[280px] lg:w-[320px] relative aspect-[3/4] overflow-hidden rounded-sm group transition-all duration-500 ease-in-out bg-white/5 cursor-pointer snap-start"
                 >
                     {/* Background Image */}
                     <img 
@@ -210,9 +208,9 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none"></div>
 
                     {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end pointer-events-none z-10">
-                        <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-4 opacity-90 group-hover:opacity-100">
-                            <h4 className="text-2xl md:text-3xl font-serif text-white mb-2">
+                    <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col justify-end pointer-events-none z-10">
+                        <div className="transform transition-all duration-[600ms] ease-out group-hover:-translate-y-3 opacity-90 group-hover:opacity-100">
+                            <h4 className="text-xl md:text-2xl font-serif text-white mb-1.5">
                                 {el.title}
                             </h4>
                             <p className="text-xs font-sans text-brand-red tracking-wide font-medium">
@@ -222,7 +220,6 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
                     </div>
                 </div>
             ))}
-            {/* Spacer for right padding */}
             <div className="flex-none w-6 md:w-12"></div>
         </div>
       </div>
@@ -240,57 +237,50 @@ const SignatureElementsSection: React.FC<SectionProps> = ({ id }) => {
             
             <div className="max-w-7xl w-full h-full flex flex-col overflow-hidden pt-12 md:pt-0">
                 {/* Modal Header */}
-                <div className="mb-8 shrink-0">
+                <div className="mb-6 shrink-0">
                     <span className="text-brand-red font-sans tracking-wide text-xs font-medium uppercase block mb-2">
                         {selectedElement.subtitle}
                     </span>
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-5">
+                    <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">
                         {selectedElement.title}
                     </h2>
-                    <p className="text-white/70 font-sans font-light max-w-2xl leading-relaxed text-sm md:text-base border-l-2 border-brand-red/50 pl-4">
+                    <p className="text-white/70 font-sans font-light max-w-3xl leading-relaxed text-sm md:text-base border-l-2 border-brand-red/50 pl-4">
                         {selectedElement.desc}
                     </p>
                 </div>
 
-                {/* FIX 2: Modal Gallery Grid - No Cropping Flex Logic */}
-                <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 pb-8 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                    
-                    {/* Main Image */}
-                    <div 
-                        className="col-span-12 md:col-span-8 lg:col-span-6 aspect-[4/3] bg-white/5 overflow-hidden rounded-sm group cursor-pointer"
-                        onClick={() => setFullscreenImage(selectedElement.image)}
-                    >
-                        <img 
-                            src={selectedElement.image} 
-                            alt={selectedElement.title} 
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                        />
-                    </div>
-                    
-                    {/* Additional Gallery Images with Flexible Logic */}
-                    {selectedElement.gallery.map((img, i) => {
-                        // FLEX-GRID LOGIC: Check path for '16-9' landscape keywords. 
-                        // If found, display full width landscape. 
-                        // If not, display as narrow portrait. This guarantees no cropping.
-                        const isLandscape = img.includes('16-9') || img.includes('landscape');
-                        const span = isLandscape ? 'col-span-12' : 'col-span-12 md:col-span-4 lg:col-span-3';
-                        const aspect = isLandscape ? 'aspect-[16/9]' : 'aspect-[3/4]';
-
-                        return (
+                {/* FIX 4: The Masonry Grid. Prevents overlapping and respects aspect ratio without cropping. */}
+                <div className="flex-1 overflow-y-auto pb-8 scrollbar-hide">
+                    <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
+                        
+                        {/* Main Element Image */}
+                        <div 
+                            className="break-inside-avoid relative overflow-hidden rounded-sm group cursor-pointer bg-white/5"
+                            onClick={() => setFullscreenImage(selectedElement.image)}
+                        >
+                            <img 
+                                src={selectedElement.image} 
+                                alt={selectedElement.title} 
+                                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" 
+                            />
+                        </div>
+                        
+                        {/* Gallery Images */}
+                        {selectedElement.gallery.map((img, i) => (
                             <div 
                                 key={i} 
-                                className={`${span} ${aspect} bg-white/5 overflow-hidden rounded-sm group cursor-pointer`}
+                                className="break-inside-avoid relative overflow-hidden rounded-sm group cursor-pointer bg-white/5"
                                 onClick={() => setFullscreenImage(img)}
                             >
                                 <img 
                                     src={img} 
                                     alt={`${selectedElement.title} detail ${i + 1}`} 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" 
                                     loading="lazy" 
                                 />
                             </div>
-                        );
-                    })}
+                        ))}
+                    </div>
                 </div>
             </div>
 
