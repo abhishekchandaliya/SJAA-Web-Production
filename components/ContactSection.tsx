@@ -32,8 +32,8 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
   const [selectedTypology, setSelectedTypology] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   
-  const { isVisible: isFormVisible, domRef: formRef } = useScrollReveal();
-  const { isVisible: isDetailsVisible, domRef: detailsRef } = useScrollReveal();
+  const { isVisible: isHeaderVisible, domRef: headerRef } = useScrollReveal();
+  const { isVisible: isContentVisible, domRef: contentRef } = useScrollReveal();
 
   const typologies = [
     "Luxury Residential",
@@ -55,27 +55,32 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
   }, []);
 
   return (
-    // Reduced bottom padding slightly so it merges smoothly with the new footer
-    <section id={id} className="pt-20 md:pt-24 pb-12 md:pb-16 px-6 md:px-12 bg-[#111111] text-white w-full overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+    <section id={id} className="pt-20 md:pt-24 pb-12 md:pb-16 bg-[#111111] text-white w-full overflow-hidden">
+      
+      {/* Title Area - Separated from the grid so columns align perfectly below it */}
+      <div 
+        ref={headerRef}
+        className={`max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14 transition-all duration-1000 ease-out ${
+          isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-tight">
+          Get in Touch
+        </h2>
+        <p className="font-sans text-white/70 font-light max-w-md text-sm md:text-base leading-relaxed mt-2">
+          We would love to hear about your upcoming project.
+        </p>
+      </div>
+
+      <div 
+        ref={contentRef}
+        className={`max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 transition-all duration-1000 delay-200 ease-out ${
+          isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        }`}
+      >
         
         {/* Left Column: Form */}
-        <div 
-            ref={formRef}
-            className={`col-span-12 md:col-span-6 space-y-8 md:space-y-12 transition-all duration-1000 ease-out ${
-                isFormVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-            }`}
-        >
-          {/* Aligned Header Text */}
-          <div className="space-y-2">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-tight">
-              Get in Touch
-            </h2>
-            <p className="font-sans text-white/70 font-light max-w-md text-sm md:text-base leading-relaxed">
-              We would love to hear about your upcoming project.
-            </p>
-          </div>
-
+        <div className="col-span-12 md:col-span-6">
           <form className="space-y-6 max-w-md">
             <div className="space-y-1">
               <label htmlFor="name" className="font-sans text-[11px] md:text-xs text-brand-red font-medium uppercase tracking-wide block">Name</label>
@@ -157,15 +162,10 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
         </div>
 
         {/* Right Column: Contact Info & Map */}
-        <div 
-            ref={detailsRef}
-            // Math Magic: Added mt-10 md:mt-24 so the content aligns with the top of the form, not the big title above it!
-            className={`col-span-12 md:col-span-6 flex flex-col space-y-8 md:pl-12 mt-4 md:mt-[100px] transition-all duration-1000 delay-200 ease-out ${
-                isDetailsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-            }`}
-        >
+        <div className="col-span-12 md:col-span-6 flex flex-col justify-between md:pl-12">
+          
           {/* Contact Details Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-b border-white/10 pb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-b border-white/10 pb-8 mb-6">
               <div>
                  <h4 className="font-sans text-[11px] md:text-xs text-brand-red mb-3 font-medium uppercase tracking-wide">Contact</h4>
                  <div className="font-sans font-light text-sm md:text-base text-white flex flex-col gap-2">
@@ -199,16 +199,16 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
              <div>
                 <h4 className="font-sans text-[11px] md:text-xs text-brand-red mb-2 font-medium uppercase tracking-wide">Studio</h4>
                 <p className="font-sans font-light text-sm md:text-base leading-relaxed text-white">
-                  C-86C, Nandkishore Pareek Marg,<br/>
+                  C-86c, Nandkishore Pareek Marg,<br/>
                   near Kanoria College, Bapu Nagar,<br/>
                   Jaipur (Rajasthan) 302015
                 </p>
              </div>
              
-             {/* Functional Google Map - New Link Inserted */}
-             <div className="w-full h-56 sm:h-64 mt-2 bg-white/5 rounded-sm overflow-hidden border border-white/10 relative group">
+             {/* Official Google Maps Embed for SJAA Address */}
+             <div className="w-full h-48 mt-2 bg-white/5 rounded-sm overflow-hidden border border-white/10 relative group">
                 <iframe 
-                  src="https://maps.app.goo.gl/A3ezq832LM2fi1qz7" 
+                  src="https://maps.google.com/maps?q=C-86C,%20Nandkishore%20Pareek%20Marg,%20Jaipur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
