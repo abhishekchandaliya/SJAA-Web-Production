@@ -81,11 +81,10 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
   };
 
   return (
-    // Top padding normal, bottom padding severely reduced to merge with next section
     <section id={id} className="pt-10 md:pt-14 pb-2 md:pb-4 px-6 md:px-12 bg-white w-full border-t border-brand-grey/5 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - Tightened bottom margin */}
+        {/* Header */}
         <div 
           ref={headerRef}
           className={`mb-5 md:mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 transition-all duration-1000 ease-out ${
@@ -132,8 +131,8 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
               {partners.map((partner, index) => (
-                  // Compacted card padding (p-5 md:p-6)
-                  <div key={index} className="shrink-0 snap-center flex flex-col justify-between p-5 md:p-6 bg-brand-grey/5 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group border border-transparent hover:border-brand-red/10 transition-colors">
+                  // Fully synced card styling: White bg, light borders, clean drop shadows
+                  <div key={index} className="shrink-0 snap-center flex flex-col justify-between p-5 md:p-6 bg-white border border-brand-grey/10 rounded-sm w-[85vw] md:w-[320px] lg:w-[380px] group shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.1)] transition-all duration-300">
                       
                       {/* Logo Area */}
                       <div className="h-8 mb-4 flex items-center justify-start">
@@ -146,19 +145,21 @@ const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
                       </div>
 
                       {/* Body Text */}
-                      <p className="font-sans font-light italic text-brand-grey/80 mb-5 text-sm leading-relaxed">
+                      <p className="font-sans font-light italic text-brand-grey/80 mb-6 text-sm leading-relaxed">
                           "{partner.quote}"
                       </p>
 
-                      {/* Divider */}
-                      <div className="w-6 h-[1px] bg-brand-red/30 group-hover:bg-brand-red group-hover:w-12 transition-all duration-500 mb-4"></div>
+                      {/* Bottom aligned block */}
+                      <div className="mt-auto">
+                          {/* Divider matched to testimonials */}
+                          <div className="h-[1px] bg-brand-red/30 w-6 group-hover:w-12 group-hover:bg-brand-red transition-all duration-500 mb-4"></div>
 
-                      {/* Sign-off */}
-                      <div className="space-y-0.5">
-                          <h5 className="text-base md:text-lg font-serif font-medium text-[#1A1A1A]">
+                          {/* Sign-off */}
+                          <p className="text-base md:text-lg font-serif font-medium text-[#1A1A1A] mb-0.5">
                               {partner.name}
-                          </h5>
-                          <p className="text-[11px] md:text-xs font-sans text-brand-red font-medium tracking-wide">
+                          </p>
+                          {/* Sync: Replaced bold red text with subtle grey text */}
+                          <p className="text-[11px] md:text-xs font-sans text-brand-grey/60 font-light tracking-wide">
                               {partner.role}, {partner.firm}
                           </p>
                       </div>
