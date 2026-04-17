@@ -13,9 +13,9 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
-    image: "/images/projects/Elysian Heaven (2).webp",
+    image: "/images/projects/Elysian Heaven (1).webp",
     gallery: [
-    "/images/projects/Elysian Heaven (1).webp",
+    "/images/projects/Elysian Heaven (2).webp",
     "/images/projects/Elysian Heaven (3).webp",
     "/images/projects/Elysian Heaven (4).webp",
     "/images/projects/Elysian Heaven (5).webp",
