@@ -44,8 +44,8 @@ const projectData = [
     description: 'A wellness sanctuary designed to heal through nature, featuring therapeutic gardens and serene aquatic voids. The architecture defers to the landscape, creating a holistic environment for rejuvenation.',
     image: "/images/projects/nowal (10).webp",
     gallery: [
-    "/images/projects/nowal (3).webp",
     "/images/projects/nowal (12).webp",
+    "/images/projects/nowal (3).webp",
     "/images/projects/nowal (18).webp",
     "/images/projects/nowal (13).webp",
     "/images/projects/nowal (16).webp",
