@@ -57,7 +57,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
   return (
     <section id={id} className="pt-20 md:pt-24 pb-12 md:pb-16 bg-[#111111] text-white w-full overflow-hidden">
       
-      {/* Title Area - Separated from the grid so columns align perfectly below it */}
+      {/* Title Area */}
       <div 
         ref={headerRef}
         className={`max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14 transition-all duration-1000 ease-out ${
@@ -199,16 +199,16 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
              <div>
                 <h4 className="font-sans text-[11px] md:text-xs text-brand-red mb-2 font-medium uppercase tracking-wide">Studio</h4>
                 <p className="font-sans font-light text-sm md:text-base leading-relaxed text-white">
-                  C-86c, Nandkishore Pareek Marg,<br/>
+                  C-86C, Nandkishore Pareek Marg,<br/>
                   near Kanoria College, Bapu Nagar,<br/>
                   Jaipur (Rajasthan) 302015
                 </p>
              </div>
              
-             {/* Official Google Maps Embed for SJAA Address */}
+             {/* DIRECT PIN FIX: Using the firm name directly in the Google Maps query to bypass the multi-business building listing */}
              <div className="w-full h-48 mt-2 bg-white/5 rounded-sm overflow-hidden border border-white/10 relative group">
                 <iframe 
-                  src="https://maps.google.com/maps?q=C-86C,%20Nandkishore%20Pareek%20Marg,%20Jaipur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                  src="https://maps.google.com/maps?q=Shree%20Jinendra%20Architect%20%26%20Associates%2C%20Jaipur&t=&z=16&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
