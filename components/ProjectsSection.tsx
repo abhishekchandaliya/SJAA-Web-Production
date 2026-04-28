@@ -114,8 +114,14 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'Drawing from regional heritage, this residence employs local sandstone and intricate privacy veils to temper the harsh desert sun.',
-    image: "/images/projects/Cultural Elegance Residency (24).webp",
-    gallery: ["/images/projects/Cultural Elegance Residency (1).webp"]
+    image: "/images/projects/Cultural Elegance Residency (26).webp",
+    gallery: [
+    "/images/projects/Cultural Elegance Residency (14).webp",
+    "/images/projects/Cultural Elegance Residency (11).webp",
+    "/images/projects/Cultural Elegance Residency (27).webp",
+    "/images/projects/Cultural Elegance Residency (18).webp",
+    "/images/projects/Cultural Elegance Residency (24).webp",
+    ]
   },
   { 
     title: 'Classical Grandeur', 
@@ -123,8 +129,18 @@ const projectData = [
     category: 'Luxury Residences', 
     status: 'Completed',
     description: 'A stately composition of formal gardens and architectural symmetry, designed to age gracefully alongside its inhabitants.',
-    image: "/images/projects/Classical Grandeur (5).webp",
-    gallery: ["/images/projects/Classical Grandeur (7).webp"]
+    image: "/images/projects/Classical Grandeur (20).webp",
+    gallery: [
+    "/images/projects/Classical Grandeur (8).webp",
+    "/images/projects/Classical Grandeur (2).webp",
+    "/images/projects/Classical Grandeur (9).webp",
+    "/images/projects/Classical Grandeur (12).webp",
+    "/images/projects/Classical Grandeur (6).webp",
+    "/images/projects/Classical Grandeur (4).webp",
+    "/images/projects/Classical Grandeur (18).webp",
+    "/images/projects/Classical Grandeur (17).webp",
+    "/images/projects/Classical Grandeur (21).webp",
+    ]
   },
   { 
     title: 'Grand Colonnade', 
