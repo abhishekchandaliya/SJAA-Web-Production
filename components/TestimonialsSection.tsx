@@ -29,6 +29,11 @@ const useScrollReveal = () => {
 
 const testimonials = [
   {
+    quote: "Working with Ar. Abhishek Ji and the SJAA team for Nowal Naturecare was a seamless and inspiring experience. Their ability to translate our vision into a thoughtfully designed, nature-aligned space truly elevated the essence of the project. Their design sensibility and understanding of nature-centric spaces perfectly aligned with our vision for Nowal Naturecare. A truly professional, dedicated and visionary team.",
+    author: "Owner",
+    project: "Nowal Naturecare Wellness Resort"
+  },
+  {
     quote: "Abhishek actually solves problems on-site, saving us time and money. He is incredibly humble and treats our vision as his own.",
     author: "Director",
     project: "Ramsetu Global Infra Projects Pvt. Ltd."
@@ -42,11 +47,6 @@ const testimonials = [
     quote: "Working with Abhishek was a joy. He doesn't just design beautiful spaces; he cares deeply about the project and handles complex challenges without any fuss.",
     author: "Owner",
     project: "Glass Haven"
-  },
-  {
-    quote: "Working with Ar. Abhishek Ji and the SJAA team for Nowal Naturecare was a seamless and inspiring experience. Their ability to translate our vision into a thoughtfully designed, nature-aligned space truly elevated the essence of the project. Their design sensibility and understanding of nature-centric spaces perfectly aligned with our vision for Nowal Naturecare. A truly professional, dedicated and visionary team.",
-    author: "Owner",
-    project: "Nowal Naturecare Wellness Resort"
   },
   {
     quote: "Even as a top architect, Abhishek is completely down-to-earth. He worked hard to keep our costs in check without ever losing the beauty of the design.",
