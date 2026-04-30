@@ -44,7 +44,7 @@ const testimonials = [
     project: "Glass Haven"
   },
   {
-    quote: "His dedication completely transformed our resort. He went way beyond what was asked of him, proving how much he cares about the people who will use the space.",
+    quote: "Working with Ar. Abhishek Ji and the SJAA team for Nowal Naturecare was a seamless and inspiring experience. Their ability to translate our vision into a thoughtfully designed, nature-aligned space truly elevated the essence of the project. Their design sensibility and understanding of nature-centric spaces perfectly aligned with our vision for Nowal Naturecare. A truly professional, dedicated and visionary team.",
     author: "Owner",
     project: "Nowal Naturecare Wellness Resort"
   },
