@@ -50,11 +50,11 @@ const partners = [
     firm: "Genesis Design Studio"
   },
   {
-    logo: "/images/partners/insight.png",
+    logo: "/images/partners/agarchitects.png",
     quote: "Abhishek's deep focus on detailing gives our architectural projects a living, breathing quality that our clients absolutely love.",
-    name: "Ar. Hridyesh",
+    name: "Ar. Anish Garg",
     role: "Principal Architect",
-    firm: "Insight ~ An Architecture Studio"
+    firm: "AG Architects"
   },
   {
     logo: "/images/partners/sheetal.png",
