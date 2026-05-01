@@ -43,19 +43,19 @@ const partners = [
     firm: "Ruby & Amit Architects"
   },
   {
-    logo: "/images/partners/genesis.png",
-    quote: "SJAA's practical approach to landscape design always elevates our projects. They stay committed from the first sketch to the final planting.",
-    name: "Ar. Raghuveer Singh",
-    role: "Principal Architect",
-    firm: "Genesis Design Studio"
-  },
-  {
     logo: "/images/partners/sheetal.png",
     quote: "Working with SJAA means getting a beautiful, modern landscape. Their teamwork and flawless execution make them our go-to practice.",
     name: "Ar. Sheetal Agarwal",
     role: "Principal Architect",
     firm: "Sheetal Agarwal & Associates"
   }
+  {
+    logo: "/images/partners/genesis.png",
+    quote: "SJAA's practical approach to landscape design always elevates our projects. They stay committed from the first sketch to the final planting.",
+    name: "Ar. Raghuveer Singh",
+    role: "Principal Architect",
+    firm: "Genesis Design Studio"
+  },
   {
     logo: "/images/partners/agarchitects.png",
     quote: "Abhishek's deep focus on detailing gives our architectural projects a living, breathing quality that our clients absolutely love.",
