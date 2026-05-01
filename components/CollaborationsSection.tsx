@@ -50,19 +50,19 @@ const partners = [
     firm: "Genesis Design Studio"
   },
   {
-    logo: "/images/partners/agarchitects.png",
-    quote: "Abhishek's deep focus on detailing gives our architectural projects a living, breathing quality that our clients absolutely love.",
-    name: "Ar. Anish Garg",
-    role: "Principal Architect",
-    firm: "AG Architects"
-  },
-  {
     logo: "/images/partners/sheetal.png",
     quote: "Working with SJAA means getting a beautiful, modern landscape. Their teamwork and flawless execution make them our go-to practice.",
     name: "Ar. Sheetal Agarwal",
     role: "Principal Architect",
     firm: "Sheetal Agarwal & Associates"
   }
+  {
+    logo: "/images/partners/agarchitects.png",
+    quote: "Abhishek's deep focus on detailing gives our architectural projects a living, breathing quality that our clients absolutely love.",
+    name: "Ar. Anish Garg",
+    role: "Principal Architect",
+    firm: "AG Architects"
+  },
 ];
 
 const CollaborationsSection: React.FC<SectionProps> = ({ id }) => {
