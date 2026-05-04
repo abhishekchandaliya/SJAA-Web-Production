@@ -48,7 +48,7 @@ const partners = [
     name: "Ar. Sheetal Agarwal",
     role: "Principal Architect",
     firm: "Sheetal Agarwal & Associates"
-  }
+  },
   {
     logo: "/images/partners/genesis.png",
     quote: "SJAA's practical approach to landscape design always elevates our projects. They stay committed from the first sketch to the final planting.",
