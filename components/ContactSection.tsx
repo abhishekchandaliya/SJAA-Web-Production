@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface SectionProps {
   id: string;
@@ -32,6 +32,10 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
   const [selectedTypology, setSelectedTypology] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   
+  // Form Submission States
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  
   const { isVisible: isHeaderVisible, domRef: headerRef } = useScrollReveal();
   const { isVisible: isContentVisible, domRef: contentRef } = useScrollReveal();
 
@@ -53,6 +57,42 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Elite Form Submission Handler
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    const formData = new FormData(e.currentTarget);
+    
+    // REPLACE THIS WITH YOUR ACTUAL WEB3FORMS ACCESS KEY
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); 
+    formData.append("subject", "New High-Value Inquiry from SJAA Website");
+    formData.append("from_name", "SJAA Official Website");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        e.currentTarget.reset();
+        setSelectedTypology("");
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id={id} className="pt-20 md:pt-24 pb-12 md:pb-16 bg-[#111111] text-white w-full overflow-hidden">
@@ -81,12 +121,16 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
         
         {/* Left Column: Form */}
         <div className="col-span-12 md:col-span-6">
-          <form className="space-y-6 max-w-md">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
+            
+            {/* Added required 'name' attributes for data capture */}
             <div className="space-y-1">
               <label htmlFor="name" className="font-sans text-[11px] md:text-xs text-brand-red font-medium uppercase tracking-wide block">Name</label>
               <input 
                 type="text" 
                 id="name"
+                name="name"
+                required
                 className="w-full bg-transparent border-b border-white/20 py-2 font-sans text-sm md:text-base font-light focus:outline-none focus:border-white transition-colors placeholder-white/30 rounded-none"
                 placeholder="Your full name"
               />
@@ -97,6 +141,8 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
               <input 
                 type="email" 
                 id="email"
+                name="email"
+                required
                 className="w-full bg-transparent border-b border-white/20 py-2 font-sans text-sm md:text-base font-light focus:outline-none focus:border-white transition-colors placeholder-white/30 rounded-none"
                 placeholder="yourname@example.com"
               />
@@ -107,13 +153,18 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
               <input 
                 type="tel" 
                 id="phone"
+                name="phone"
+                required
                 className="w-full bg-transparent border-b border-white/20 py-2 font-sans text-sm md:text-base font-light focus:outline-none focus:border-white transition-colors placeholder-white/30 rounded-none"
                 placeholder="+91 00000 00000"
               />
             </div>
 
             <div className="space-y-1">
-               <label htmlFor="projectType" className="font-sans text-[11px] md:text-xs text-brand-red font-medium uppercase tracking-wide block">Project Typology</label>
+               <label className="font-sans text-[11px] md:text-xs text-brand-red font-medium uppercase tracking-wide block">Project Typology</label>
+               {/* Hidden input to capture the custom dropdown value */}
+               <input type="hidden" name="project_typology" value={selectedTypology || "Not Specified"} />
+               
                <div className="relative" ref={dropdownRef}>
                   <div 
                     className="w-full bg-transparent border-b border-white/20 py-2 font-sans text-sm md:text-base font-light cursor-pointer flex justify-between items-center transition-colors hover:border-white focus:border-white"
@@ -148,23 +199,47 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
               <label htmlFor="details" className="font-sans text-[11px] md:text-xs text-brand-red font-medium uppercase tracking-wide block">Project Details</label>
               <textarea 
                 id="details"
+                name="message"
                 rows={2}
+                required
                 className="w-full bg-transparent border-b border-white/20 py-2 font-sans text-sm md:text-base font-light focus:outline-none focus:border-white transition-colors resize-none placeholder-white/30 rounded-none"
                 placeholder="Briefly describe your site..."
               ></textarea>
             </div>
 
-            <button type="submit" className="group flex items-center gap-3 text-white pt-2 hover:text-brand-red transition-colors">
-              <span className="font-sans text-xs md:text-sm font-medium tracking-wide uppercase">Submit Inquiry</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform"/>
-            </button>
+            {/* Dynamic Submit Button & Status Messages */}
+            <div className="pt-2">
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="group flex items-center gap-3 text-white hover:text-brand-red transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="font-sans text-xs md:text-sm font-medium tracking-wide uppercase">
+                  {isSubmitting ? 'Sending...' : 'Submit Inquiry'}
+                </span>
+                {!isSubmitting && <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform"/>}
+              </button>
+
+              {submitStatus === 'success' && (
+                <div className="flex items-center gap-2 mt-4 text-green-400 font-sans text-sm">
+                  <CheckCircle2 size={16} />
+                  <span>Message sent successfully. We will be in touch shortly.</span>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="flex items-center gap-2 mt-4 text-brand-red font-sans text-sm">
+                  <AlertCircle size={16} />
+                  <span>Something went wrong. Please email us directly.</span>
+                </div>
+              )}
+            </div>
           </form>
         </div>
 
         {/* Right Column: Contact Info & Map */}
         <div className="col-span-12 md:col-span-6 flex flex-col justify-between md:pl-12">
           
-          {/* Contact Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-b border-white/10 pb-8 mb-6">
               <div>
                  <h4 className="font-sans text-[11px] md:text-xs text-brand-red mb-3 font-medium uppercase tracking-wide">Contact</h4>
@@ -194,7 +269,6 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
               </div>
           </div>
           
-          {/* Address & Live Map Embed */}
           <div className="flex flex-col gap-4">
              <div>
                 <h4 className="font-sans text-[11px] md:text-xs text-brand-red mb-2 font-medium uppercase tracking-wide">Studio</h4>
@@ -205,7 +279,6 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
                 </p>
              </div>
              
-             {/* DIRECT PIN FIX: Using the firm name directly in the Google Maps query to bypass the multi-business building listing */}
              <div className="w-full h-48 mt-2 bg-white/5 rounded-sm overflow-hidden border border-white/10 relative group">
                 <iframe 
                   src="https://maps.google.com/maps?q=Shree%20Jinendra%20Architect%20%26%20Associates%2C%20Jaipur&t=&z=16&ie=UTF8&iwloc=&output=embed" 
