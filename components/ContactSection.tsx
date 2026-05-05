@@ -68,7 +68,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
 
     const formData = new FormData(e.currentTarget);
     
-    // REPLACE THIS WITH YOUR ACTUAL WEB3FORMS ACCESS KEY
+    // Web3Forms Access Key
     formData.append("access_key", "00360382-cf07-43c4-b885-0df2d927ab1e"); 
     formData.append("subject", "New High-Value Inquiry from SJAA Website");
     formData.append("from_name", "SJAA Official Website");
@@ -76,6 +76,10 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
+        // THE FIX: This tells Web3Forms to send a clean success signal, not an HTML redirect page.
+        headers: {
+          'Accept': 'application/json'
+        },
         body: formData
       });
 
@@ -125,7 +129,6 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
         <div className="col-span-12 md:col-span-6">
           <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
             
-            {/* Added required 'name' attributes for data capture */}
             <div className="space-y-1">
               <label htmlFor="name" className="font-sans text-[11px] md:text-xs text-brand-red font-medium uppercase tracking-wide block">Name</label>
               <input 
