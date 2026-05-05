@@ -60,7 +60,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Elite Form Submission Handler
+  // Elite Form Submission Handler (Strict JSON Protocol)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -73,17 +73,23 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     formData.append("subject", "New High-Value Inquiry from SJAA Website");
     formData.append("from_name", "SJAA Official Website");
 
+    // THE FIX: Convert FormData strictly to JSON to bypass browser security blocks
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        // THE FIX: This tells Web3Forms to send a clean success signal, not an HTML redirect page.
         headers: {
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
-        body: formData
+        body: json
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         setSubmitStatus('success');
         e.currentTarget.reset();
         setSelectedTypology("");
@@ -94,6 +100,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
         setSubmitStatus('error');
       }
     } catch (error) {
+      console.error("Submission Error:", error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
