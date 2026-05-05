@@ -67,7 +67,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     const formData = new FormData(e.currentTarget);
     
     // REPLACE THIS WITH YOUR ACTUAL WEB3FORMS ACCESS KEY
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); 
+    formData.append("access_key", "00360382-cf07-43c4-b885-0df2d927ab1e"); 
     formData.append("subject", "New High-Value Inquiry from SJAA Website");
     formData.append("from_name", "SJAA Official Website");
 
