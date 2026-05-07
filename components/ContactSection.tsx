@@ -60,7 +60,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Elite Form Submission Handler (Strict JSON Protocol)
+  // Elite Form Submission Handler (Native Web3Forms Protocol)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -73,23 +73,17 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
     formData.append("subject", "New High-Value Inquiry from SJAA Website");
     formData.append("from_name", "SJAA Official Website");
 
-    // THE FIX: Convert FormData strictly to JSON to bypass browser security blocks
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
-
     try {
+      // Stripped of all custom headers to prevent browser preflight blocks
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: json
+        body: formData
       });
 
-      const result = await response.json();
+      // Parse the response native to Web3Forms
+      const data = await response.json();
 
-      if (result.success) {
+      if (data.success) {
         setSubmitStatus('success');
         e.currentTarget.reset();
         setSelectedTypology("");
@@ -97,10 +91,11 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
         // Reset success message after 5 seconds
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
+        console.error("Web3Forms Server Error:", data.message);
         setSubmitStatus('error');
       }
     } catch (error) {
-      console.error("Submission Error:", error);
+      console.error("Browser Submission Error:", error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
