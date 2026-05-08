@@ -15,11 +15,11 @@ const projectData = [
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
     image: "/images/projects/Elysian Heaven (1).webp",
     gallery: [
-    "/images/projects/Elysian Heaven (2).webp",
-    "/images/projects/Elysian Heaven (3).webp",
+    "/images/projects/Elysian Heaven (7).webp",
     "/images/projects/Elysian Heaven (4).webp",
-    "/images/projects/Elysian Heaven (5).webp",
-    "/images/projects/Elysian Heaven (6).webp",
+    "/images/projects/Elysian Heaven (3).webp",
+    "/images/projects/Elysian Heaven (2).webp",
+    "/images/projects/Elysian Heaven (14).webp",
     ]
   },
   { 
@@ -28,12 +28,18 @@ const projectData = [
     category: 'Private Estates', 
     status: 'Completed',
     description: 'A sprawling estate that embraces the natural topography, weaving built interventions seamlessly into the existing flora. The landscape strategy prioritizes biodiversity and ecological resilience.',
-    image: "/images/projects/blossom-ridge (5).webp",
+    image: "/images/projects/blossom-ridge (6).webp",
     gallery: [
+    "/images/projects/blossom-ridge (2).webp",
+    "/images/projects/blossom-ridge (9).webp",
+    "/images/projects/blossom-ridge (10).webp",
     "/images/projects/blossom-ridge (1).webp",
     "/images/projects/blossom-ridge (3).webp",
-    "/images/projects/blossom-ridge (12).webp",
-    "/images/projects/blossom-ridge (14).webp",
+    "/images/projects/blossom-ridge (8).webp",
+    "/images/projects/blossom-ridge (11).webp",
+    "/images/projects/blossom-ridge (4).webp",
+    "/images/projects/blossom-ridge (5).webp",
+    "/images/projects/blossom-ridge (7).webp",
     ]
   },
   { 
