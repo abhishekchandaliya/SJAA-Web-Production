@@ -12,6 +12,7 @@ const projectData = [
     location: 'Jaipur', 
     category: 'Luxury Residences', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'A masterclass in spatial fluidity, this residence blurs the boundaries between interior sanctuaries and curated exterior landscapes. Native planting and climate-responsive shading ensure a serene, timeless habitat.',
     image: "/images/projects/Elysian Heaven (1).webp",
     gallery: [
@@ -27,6 +28,7 @@ const projectData = [
     location: 'Jaipur', 
     category: 'Private Estates', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'A sprawling estate that embraces the natural topography, weaving built interventions seamlessly into the existing flora. The landscape strategy prioritizes biodiversity and ecological resilience.',
     image: "/images/projects/blossom-ridge (6).webp",
     gallery: [
@@ -47,6 +49,7 @@ const projectData = [
     location: 'Badhal', 
     category: 'Hospitality', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'A wellness sanctuary designed to heal through nature, featuring therapeutic gardens and serene aquatic voids. The architecture defers to the landscape, creating a holistic environment for rejuvenation.',
     image: "/images/projects/nowal (10).webp",
     gallery: [
@@ -76,6 +79,7 @@ const projectData = [
     location: 'Salasar', 
     category: 'Institutional & Commercial', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'A civic landmark that balances monumental scale with inviting, human-centric courtyards. The landscape serves as a vital public amenity, offering shaded respite and fostering community interaction.',
     image: "/images/projects/laxmi poddar (10).webp",
     gallery: [
@@ -102,6 +106,7 @@ const projectData = [
     location: 'Jaipur', 
     category: 'Luxury Residences', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'Rooted in classical proportions, this dwelling orchestrates a dialogue between monumental materiality and delicate softscapes.',
     image: "/images/projects/Classic Oasis (21).webp",
     gallery: ["/images/projects/Classic Oasis (1).webp", "/images/projects/Classic Oasis (3).webp"]
@@ -111,6 +116,7 @@ const projectData = [
     location: 'Jaipur', 
     category: 'Luxury Residences', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'An exploration of refined tactility and light, where expansive glazing invites the surrounding ecology into the living experience.',
     image: "/images/projects/Opulent Nest (5).webp",
     gallery: ["/images/projects/Opulent Nest (1).webp", "/images/projects/Opulent Nest (10).webp"]
@@ -120,6 +126,7 @@ const projectData = [
     location: 'Bikaner', 
     category: 'Luxury Residences', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'Drawing from regional heritage, this residence employs local sandstone and intricate privacy veils to temper the harsh desert sun.',
     image: "/images/projects/Cultural Elegance Residency (26).webp",
     gallery: [
@@ -135,6 +142,7 @@ const projectData = [
     location: 'Jaipur', 
     category: 'Luxury Residences', 
     status: 'Completed',
+    featured: true, // <-- This pulls the project to the top
     description: 'A stately composition of formal gardens and architectural symmetry, designed to age gracefully alongside its inhabitants.',
     image: "/images/projects/Classical Grandeur (20).webp",
     gallery: [
@@ -275,14 +283,12 @@ const ProjectCard = ({ project, onClick, index, isHovered, isDesktop, onMouseEnt
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
-      // MATHEMATICAL FLEX MAGIC: min-w-0 allows shrinking. flex-[2] makes it twice as wide as siblings (flex-1).
       className={`min-w-0 transition-all duration-[700ms] ease-out shrink-0 group cursor-pointer flex flex-col
         ${isHovered && isDesktop ? 'flex-[2]' : 'flex-1'}
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
       `}
       style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
     >
-      {/* Lowered height to h-[220px] for perfect single-screen fit */}
       <div className="relative overflow-hidden mb-2 bg-brand-grey/5 w-full h-48 lg:h-[220px] rounded-sm">
         <img 
           src={project.image} 
@@ -315,7 +321,6 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [cols, setCols] = useState(4);
 
-  // Checks screen size to determine how many items to put in a single row chunk
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) setCols(4);
@@ -354,14 +359,21 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
     });
   };
 
-  const filteredProjects = projectData.filter(project => {
-    if (activeTab === 'All') return true;
-    return project.category === activeTab;
-  });
+  // THE ELITE SORTING ENGINE
+  const filteredProjects = projectData
+    .filter(project => {
+      if (activeTab === 'All') return true;
+      return project.category === activeTab;
+    })
+    .sort((a, b) => {
+      // This mathematically forces projects with 'featured: true' to jump to the top of the array
+      const aFeatured = a.featured ? 1 : 0;
+      const bFeatured = b.featured ? 1 : 0;
+      return bFeatured - aFeatured;
+    });
 
   const displayedProjects = filteredProjects.slice(0, displayCount);
 
-  // LOGIC: Chunk the projects into strict, unbreakable rows based on screen size
   const rows = [];
   for (let i = 0; i < displayedProjects.length; i += cols) {
     rows.push(displayedProjects.slice(i, i + cols));
@@ -408,7 +420,6 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
         <div className="flex flex-col gap-4 md:gap-6">
           {rows.length > 0 ? (
             rows.map((row, rowIndex) => (
-              // flex-nowrap completely prevents the glitch where items fall to the next line
               <div key={rowIndex} className="flex flex-row flex-nowrap w-full gap-3 md:gap-4 lg:gap-6">
                 {row.map((project, colIndex) => {
                   const globalIndex = rowIndex * cols + colIndex;
@@ -419,7 +430,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id, onProjectClick }) => {
                       index={globalIndex} 
                       onClick={() => onProjectClick && onProjectClick(project)}
                       isHovered={hoveredIndex === globalIndex}
-                      isDesktop={cols >= 2} // Works safely on tablet and desktop now
+                      isDesktop={cols >= 2}
                       onMouseEnter={() => setHoveredIndex(globalIndex)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     />
